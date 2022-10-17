@@ -44,7 +44,7 @@ namespace Blogz
                 z.Add(new BlogControl("Day 5", "Test Day", "06.05.2022", new string[] { "a", "b", "c" }, 5, true, ButtonClickHandler));
                 z.Add(new BlogControl("Day 6", "Test Day", "07.05.2022", new string[] { "a", "b", "c" }, 6, true, ButtonClickHandler));
                 z.Add(new BlogControl("Day 7", "Test Day", "08.05.2022", new string[] { "a", "b", "c" }, 7, true, ButtonClickHandler));
-                CategoryControl x = new CategoryControl("Ausbildung Test " + i, z);
+                CategoryControl x = new CategoryControl("Category Test " + i, z);
                 Essentials.Categorys.Add(x);
             }
         }
