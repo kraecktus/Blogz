@@ -60,7 +60,7 @@ namespace Blogz
                 }
                 else
                 {
-                    this.BlogsPanel.Controls.Add(new BlogControl("Info", "No Blogs Found", "01.01.2022", new string[] { "" }, 0, false, PlaceHolderEvent));
+                    this.BlogsPanel.Controls.Add(new BlogControl(new Blog("Info", "Dev", "No Blogs Found", "00.00.0000", new string[] { "" }, 0, new List<Image>() { new Image("Image0000", "C:/Blogz/Data/ErrorImage.png", 0) }), false, PlaceHolderEvent));
                 }
             }
             

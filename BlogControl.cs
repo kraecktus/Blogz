@@ -5,30 +5,20 @@ namespace Blogz
 {
     public partial class BlogControl : UserControl
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string CreationDate { get; set; }
-        public string[] Content { get; set; }
+        public Blog LocalBlog { get; set; }
         public Boolean ShowButtons { get; set; } = false;
         public int ID { get; set; }
         public ClickState LocalClickState { get; set; }
         public EventHandler FormsClickHandler { get; set; }
-        public BlogControl(string _Title, string _Description, string _CreationDate, string[] _Content, int _ID, Boolean _ShowButtons, EventHandler _FormsClickHandler)
+        public BlogControl(Blog _Blog, Boolean _ShowButtons, EventHandler _FormsClickHandler)
         {
-            Title = _Title;
-            Description = _Description;
-            CreationDate = _CreationDate;
-            Content = _Content;
+            LocalBlog = _Blog;
             ShowButtons = _ShowButtons;
-            ID = _ID;
             InitializeComponent();
             OpenButton.Click += ClickHandler;
             EditButton.Click += ClickHandler;
             DeleteButton.Click += ClickHandler;
             FormsClickHandler = _FormsClickHandler;
-            EditButton.ID = ID;
-            OpenButton.ID = ID;
-            DeleteButton.ID = ID;
             Initialize();
         }
         public void ClickHandler(object sender, EventArgs e)
@@ -39,7 +29,7 @@ namespace Blogz
         }
         public void Initialize()
         {
-            TitleLBL.Text = Title + " - " + Description;
+            TitleLBL.Text = LocalBlog.Title + " - " + LocalBlog.Description;
             if(ShowButtons)
             {
                 OpenButton.Visible = true;
@@ -53,6 +43,5 @@ namespace Blogz
                 DeleteButton.Visible = false;
             }
         }
-
     }
 }
