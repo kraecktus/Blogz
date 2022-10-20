@@ -47,6 +47,8 @@
             // OpenButton
             // 
             this.OpenButton.BackColor = System.Drawing.Color.SlateGray;
+            this.OpenButton.BlogID = "Blog0000";
+            this.OpenButton.CategoryID = "Category0000";
             this.OpenButton.ClickState = Blogz.ClickState.Open;
             this.OpenButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OpenButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -59,7 +61,9 @@
             // 
             // DeleteButton
             // 
-            this.DeleteButton.ClickState = Blogz.ClickState.Open;
+            this.DeleteButton.BlogID = "Blog0000";
+            this.DeleteButton.CategoryID = "Category0000";
+            this.DeleteButton.ClickState = Blogz.ClickState.Delete;
             this.DeleteButton.Location = new System.Drawing.Point(413, 8);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(50, 23);
@@ -69,6 +73,8 @@
             // 
             // EditButton
             // 
+            this.EditButton.BlogID = "Blog0000";
+            this.EditButton.CategoryID = "Category0000";
             this.EditButton.ClickState = Blogz.ClickState.Edit;
             this.EditButton.Location = new System.Drawing.Point(469, 8);
             this.EditButton.Name = "EditButton";

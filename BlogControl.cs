@@ -7,7 +7,6 @@ namespace Blogz
     {
         public Blog LocalBlog { get; set; }
         public Boolean ShowButtons { get; set; } = false;
-        public int ID { get; set; }
         public ClickState LocalClickState { get; set; }
         public EventHandler FormsClickHandler { get; set; }
         public BlogControl(Blog _Blog, Boolean _ShowButtons, EventHandler _FormsClickHandler)
@@ -15,9 +14,17 @@ namespace Blogz
             LocalBlog = _Blog;
             ShowButtons = _ShowButtons;
             InitializeComponent();
+
             OpenButton.Click += ClickHandler;
+            OpenButton.BlogID = LocalBlog.ID;
+            OpenButton.CategoryID = LocalBlog.CategoryID;
             EditButton.Click += ClickHandler;
+            EditButton.BlogID = LocalBlog.ID;
+            EditButton.CategoryID = LocalBlog.CategoryID;
             DeleteButton.Click += ClickHandler;
+            DeleteButton.BlogID = LocalBlog.ID;
+            DeleteButton.CategoryID = LocalBlog.CategoryID;
+
             FormsClickHandler = _FormsClickHandler;
             Initialize();
         }
