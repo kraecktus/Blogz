@@ -52,7 +52,7 @@
             this.OpenButton.ClickState = Blogz.ClickState.Open;
             this.OpenButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OpenButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.OpenButton.Location = new System.Drawing.Point(525, 8);
+            this.OpenButton.Location = new System.Drawing.Point(535, 8);
             this.OpenButton.Name = "OpenButton";
             this.OpenButton.Size = new System.Drawing.Size(53, 23);
             this.OpenButton.TabIndex = 10;
@@ -61,27 +61,32 @@
             // 
             // DeleteButton
             // 
+            this.DeleteButton.BackColor = System.Drawing.Color.DarkGray;
             this.DeleteButton.BlogID = "Blog0000";
             this.DeleteButton.CategoryID = "Category0000";
             this.DeleteButton.ClickState = Blogz.ClickState.Delete;
-            this.DeleteButton.Location = new System.Drawing.Point(413, 8);
+            this.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DeleteButton.Location = new System.Drawing.Point(423, 8);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(50, 23);
             this.DeleteButton.TabIndex = 9;
             this.DeleteButton.Text = "Delete";
-            this.DeleteButton.UseVisualStyleBackColor = true;
+            this.DeleteButton.UseVisualStyleBackColor = false;
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // EditButton
             // 
+            this.EditButton.BackColor = System.Drawing.Color.DarkGray;
             this.EditButton.BlogID = "Blog0000";
             this.EditButton.CategoryID = "Category0000";
             this.EditButton.ClickState = Blogz.ClickState.Edit;
-            this.EditButton.Location = new System.Drawing.Point(469, 8);
+            this.EditButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EditButton.Location = new System.Drawing.Point(479, 8);
             this.EditButton.Name = "EditButton";
             this.EditButton.Size = new System.Drawing.Size(50, 23);
             this.EditButton.TabIndex = 8;
             this.EditButton.Text = "Edit";
-            this.EditButton.UseVisualStyleBackColor = true;
+            this.EditButton.UseVisualStyleBackColor = false;
             // 
             // BlogControl
             // 
@@ -93,7 +98,7 @@
             this.Controls.Add(this.EditButton);
             this.Controls.Add(this.TitleLBL);
             this.Name = "BlogControl";
-            this.Size = new System.Drawing.Size(585, 40);
+            this.Size = new System.Drawing.Size(597, 40);
             this.ResumeLayout(false);
             this.PerformLayout();
 

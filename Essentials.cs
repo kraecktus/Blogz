@@ -11,8 +11,11 @@ namespace Blogz
 {
     public class Essentials
     {
+        // TODO: Backup Funktion
         public static Dictionary<string, CategoryControl> Categorys = new Dictionary<string, CategoryControl>();
         public static Dictionary<string, Image> Images = new Dictionary<string, Image>();
+        public static Dictionary<string, Image> ImagesSelected = new Dictionary<string, Image>();
+        public static EventHandler PlaceHolderEvent;
         public static string ErrorMessage
         {
             get
@@ -25,6 +28,16 @@ namespace Blogz
             }
         }
 
+        public static System.Drawing.Image ReadImage(string Path)
+        {
+            using (var ms = new MemoryStream(File.ReadAllBytes(Path)))
+            {
+                System.Drawing.Image _image = System.Drawing.Image.FromStream(ms);
+                ms.Flush();
+                ms.Dispose();
+                return _image;
+            }
+        }
         // TODO: Make a Path Selector
         public static string Path = "C:/Blogz";
         public static Blog ErrorBlog(string ErrorMessage)
@@ -33,10 +46,11 @@ namespace Blogz
 
             return _Blog;
         }
-        public static void LoadData(EventHandler ButtonClickHandler)
+        public static void LoadData(EventHandler ButtonClickHandler, EventHandler InitializeEvent)
         {
             Essentials.Categorys.Clear();
             Essentials.Images.Clear();
+            Essentials.ImagesSelected.Clear();
             List<Blog> BlogsList = new List<Blog>();
             List<LoadingCategory> CategoryList = new List<LoadingCategory>();
             List<Image> ImageList = new List<Image>();
@@ -85,7 +99,7 @@ namespace Blogz
                 Dictionary<string, BlogControl> _Blogs = new Dictionary<string, BlogControl>();
                 foreach (Blog _blog in BlogsList.Where(x => x.CategoryID == cat .ID))
                 {
-                    _Blogs.Add(_blog.ID, new BlogControl(_blog, true, ButtonClickHandler));
+                    _Blogs.Add(_blog.ID, new BlogControl(_blog, true, ButtonClickHandler, InitializeEvent));
                 }
                 Essentials.Categorys.Add(cat.ID, new CategoryControl(new Category(cat.Title, _Blogs, cat.ID)));
             }

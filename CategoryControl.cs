@@ -62,7 +62,7 @@ namespace Blogz
             }
             else
             {
-                this.BlogsPanel.Controls.Add(new BlogControl(Essentials.ErrorBlog("No Blogs were Found"), false, (object sender, EventArgs e) => { }));
+                this.BlogsPanel.Controls.Add(new BlogControl(Essentials.ErrorBlog("No Blogs were Found"), false, (object sender, EventArgs e) => { }, Essentials.PlaceHolderEvent));
             }
             TitleLabel.Text = LocalCategory.Title;
             //OpenCloseButton.Text = "Open";

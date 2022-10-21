@@ -77,8 +77,20 @@
     <Compile Include="ImageUploader.Designer.cs">
       <DependentUpon>ImageUploader.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImageViewControl.Designer.cs">
+      <DependentUpon>ImageViewControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoveImageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RemoveImageForm.Designer.cs">
+      <DependentUpon>RemoveImageForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="BlogControl.resx">
       <DependentUpon>BlogControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -91,6 +103,9 @@
     <EmbeddedResource Include="ImageUploader.resx">
       <DependentUpon>ImageUploader.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ImageViewControl.resx">
+      <DependentUpon>ImageViewControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -101,6 +116,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RemoveImageForm.resx">
+      <DependentUpon>RemoveImageForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

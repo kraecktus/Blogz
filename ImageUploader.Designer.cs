@@ -107,40 +107,35 @@
             this.DisplayTtxtBox.Location = new System.Drawing.Point(94, 52);
             this.DisplayTtxtBox.Name = "DisplayTtxtBox";
             this.DisplayTtxtBox.Size = new System.Drawing.Size(259, 20);
-            this.DisplayTtxtBox.TabIndex = 6;
-            this.DisplayTtxtBox.TabStop = false;
+            this.DisplayTtxtBox.TabIndex = 1;
             // 
             // TitleTxtBox
             // 
             this.TitleTxtBox.Location = new System.Drawing.Point(95, 78);
             this.TitleTxtBox.Name = "TitleTxtBox";
             this.TitleTxtBox.Size = new System.Drawing.Size(259, 20);
-            this.TitleTxtBox.TabIndex = 7;
-            this.TitleTxtBox.TabStop = false;
+            this.TitleTxtBox.TabIndex = 2;
             // 
             // CreatorTxtBox
             // 
             this.CreatorTxtBox.Location = new System.Drawing.Point(94, 104);
             this.CreatorTxtBox.Name = "CreatorTxtBox";
             this.CreatorTxtBox.Size = new System.Drawing.Size(259, 20);
-            this.CreatorTxtBox.TabIndex = 8;
-            this.CreatorTxtBox.TabStop = false;
+            this.CreatorTxtBox.TabIndex = 3;
             // 
             // CreationTxtBox
             // 
             this.CreationTxtBox.Location = new System.Drawing.Point(94, 130);
             this.CreationTxtBox.Name = "CreationTxtBox";
             this.CreationTxtBox.Size = new System.Drawing.Size(259, 20);
-            this.CreationTxtBox.TabIndex = 9;
-            this.CreationTxtBox.TabStop = false;
+            this.CreationTxtBox.TabIndex = 4;
             // 
             // UploadButton
             // 
             this.UploadButton.Location = new System.Drawing.Point(278, 156);
             this.UploadButton.Name = "UploadButton";
             this.UploadButton.Size = new System.Drawing.Size(75, 23);
-            this.UploadButton.TabIndex = 99;
-            this.UploadButton.TabStop = false;
+            this.UploadButton.TabIndex = 5;
             this.UploadButton.Text = "Upload";
             this.UploadButton.UseVisualStyleBackColor = true;
             this.UploadButton.Click += new System.EventHandler(this.UploadButton_Click);

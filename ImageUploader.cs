@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,9 +27,11 @@ namespace Blogz
         }
         public string _Path = "";
         public EventHandler FormsButtonClickHandler;
-        public ImageUploader(EventHandler ButtonClickHandler)
+        public EventHandler FormsInitializeHandler;
+        public ImageUploader(EventHandler ButtonClickHandler, EventHandler InitializeHandler)
         {
             FormsButtonClickHandler = ButtonClickHandler;
+            FormsInitializeHandler = InitializeHandler;
             InitializeComponent();
         }
 
@@ -57,9 +60,17 @@ namespace Blogz
             else
             {
                 string NewID = GetHighestID();
-                Essentials.Images.Add(NewID, new Image(DisplayTtxtBox.Text, TitleTxtBox.Text, CreatorTxtBox.Text, CreationTxtBox.Text, Path, NewID));
-                Essentials.UpdateData();
-                Essentials.LoadData(FormsButtonClickHandler);
+                try
+                {
+                    File.Copy(Path, Essentials.Path + "/Data/Images/" + NewID + ".png");
+                    Essentials.Images.Add(NewID, new Image(DisplayTtxtBox.Text, TitleTxtBox.Text, CreatorTxtBox.Text, CreationTxtBox.Text, Path, NewID));
+                    Essentials.UpdateData();
+                    Essentials.LoadData(FormsButtonClickHandler, FormsInitializeHandler);
+                }
+                catch
+                {
+                    MessageBox.Show("Something went Wrong when Trying to Upload the File!", "Error");
+                }
                 Close();
             }
         }
@@ -74,8 +85,6 @@ namespace Blogz
             string NewNum = "";
             for (int i = 5; i < 10; i++)
             {
-
-                Console.WriteLine(CurrentHighestID[i].ToString());
                 int CurrNum = Convert.ToInt32(CurrentHighestID[i].ToString());
                 if (CurrNum != 0)
                 {

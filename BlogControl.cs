@@ -9,7 +9,8 @@ namespace Blogz
         public Boolean ShowButtons { get; set; } = false;
         public ClickState LocalClickState { get; set; }
         public EventHandler FormsClickHandler { get; set; }
-        public BlogControl(Blog _Blog, Boolean _ShowButtons, EventHandler _FormsClickHandler)
+        public EventHandler FormsInitializeHandler { get; set; }
+        public BlogControl(Blog _Blog, Boolean _ShowButtons, EventHandler _FormsClickHandler, EventHandler _FormsInitializeHandler)
         {
             LocalBlog = _Blog;
             ShowButtons = _ShowButtons;
@@ -26,6 +27,7 @@ namespace Blogz
             DeleteButton.CategoryID = LocalBlog.CategoryID;
 
             FormsClickHandler = _FormsClickHandler;
+            FormsInitializeHandler = _FormsInitializeHandler;
             Initialize();
         }
         public void ClickHandler(object sender, EventArgs e)
@@ -49,6 +51,18 @@ namespace Blogz
                 EditButton.Visible = false;
                 DeleteButton.Visible = false;
             }
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to Delete this Blog?", "Warning", MessageBoxButtons.YesNo);
+            if(result == DialogResult.Yes)
+            {
+                Essentials.Categorys[LocalBlog.CategoryID].LocalCategory.Blogs.Remove(LocalBlog.ID);
+                Essentials.UpdateData();
+                FormsInitializeHandler.Invoke(sender, e);
+            }
+
         }
     }
 }

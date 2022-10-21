@@ -21,11 +21,15 @@ namespace Blogz
         }
         public void Initialize()
         {
-            Essentials.LoadData(ButtonClickHandler);
+            this.Text = "Blogz";
+            if (!Directory.Exists(Essentials.Path + "/Data")) Directory.CreateDirectory(Essentials.Path + "/Data");
+
+            Essentials.LoadData(ButtonClickHandler, InitializeEvent);
+
             PicturePanel.Visible = false;
             CategoryFlowPanel.Controls.Clear();
             
-            if (Essentials.Categorys.Count == 0) CategoryFlowPanel.Controls.Add(new BlogControl(Essentials.ErrorBlog("No Blogs were Found"), false, (object sender, EventArgs e) => { }));
+            if (Essentials.Categorys.Count == 0) CategoryFlowPanel.Controls.Add(new BlogControl(Essentials.ErrorBlog("No Blogs were Found"), false, (object sender, EventArgs e) => { }, InitializeEvent));
             else
             {
                 foreach (CategoryControl x in Essentials.Categorys.Values)
@@ -68,21 +72,22 @@ namespace Blogz
             for (int i = 1; i < 16; i++)
             {
                 Dictionary<string, BlogControl> Blogs = new Dictionary<string, BlogControl>();
-                Blogs.Add("Blog0001", new BlogControl(new Blog("Day 1", "Dev", "Test", "00.00.0001", new string[] { "a", "b", "c", "asjkdhjkashdjkahsdjkhasd", "asjkfhasjklhfajklsbdjklasbnchjl" }, "Blog0001", new List<string>() { "Image0000", "Image0003" }, $"Category00" + i), true, ButtonClickHandler));
-                Blogs.Add("Blog0002", new BlogControl(new Blog("Day 2", "Dev", "Test", "00.00.0002", new string[] { "a", "b", "c" }, "Blog0002", new List<string>() { "Image0000" }, $"Category00" + i), true, ButtonClickHandler));
-                Blogs.Add("Blog0003", new BlogControl(new Blog("Day 3", "Dev", "Test", "00.00.0003", new string[] { "a", "b", "c" }, "Blog0003", new List<string>() { "Image0000" }, $"Category00" + i), true, ButtonClickHandler));
-                Blogs.Add("Blog0004", new BlogControl(new Blog("Day 4", "Dev", "Test", "00.00.0004", new string[] { "a", "b", "c" }, "Blog0004", new List<string>() { "Image0000" }, $"Category00" + i), true, ButtonClickHandler));
-                Blogs.Add("Blog0005", new BlogControl(new Blog("Day 5", "Dev", "Test", "00.00.0005", new string[] { "a", "b", "c" }, "Blog0005", new List<string>() { "Image0000" }, $"Category00" + i), true, ButtonClickHandler));
-                Blogs.Add("Blog0006", new BlogControl(new Blog("Day 6", "Dev", "Test", "00.00.0006", new string[] { "a", "b", "c" }, "Blog0006", new List<string>() { "Image0000" }, $"Category00" + i), true, ButtonClickHandler));
-                Blogs.Add("Blog0007", new BlogControl(new Blog("Day 7", "Dev", "Test", "00.00.0007", new string[] { "a", "b", "c" }, "Blog0007", new List<string>() { "Image0000" }, $"Category00" + i), true, ButtonClickHandler));
-                Blogs.Add("Blog0008", new BlogControl(new Blog("Day 8", "Dev", "Test", "00.00.0008", new string[] { "a", "b", "c" }, "Blog0008", new List<string>() { "Image0000" }, $"Category00" + i), true, ButtonClickHandler));
-                Blogs.Add("Blog0009", new BlogControl(new Blog("Day 9", "Dev", "Test", "00.00.0009", new string[] { "a", "b", "c" }, "Blog0009", new List<string>() { "Image0000" }, $"Category00" + i), true, ButtonClickHandler));
+                Blogs.Add("Blog0001", new BlogControl(new Blog("Day 1", "Dev", "Test", "00.00.0001", new string[] { "a", "b", "c", "asjkdhjkashdjkahsdjkhasd", "asjkfhasjklhfajklsbdjklasbnchjl" }, "Blog0001", new List<string>() { "Image0000", "Image0003" }, $"Category00" + i), true, ButtonClickHandler, InitializeEvent));
+                Blogs.Add("Blog0002", new BlogControl(new Blog("Day 2", "Dev", "Test", "00.00.0002", new string[] { "a", "b", "c" }, "Blog0002", new List<string>() { "Image0000" }, $"Category00" + i), true, ButtonClickHandler, InitializeEvent));
+                Blogs.Add("Blog0003", new BlogControl(new Blog("Day 3", "Dev", "Test", "00.00.0003", new string[] { "a", "b", "c" }, "Blog0003", new List<string>() { "Image0000" }, $"Category00" + i), true, ButtonClickHandler, InitializeEvent));
+                Blogs.Add("Blog0004", new BlogControl(new Blog("Day 4", "Dev", "Test", "00.00.0004", new string[] { "a", "b", "c" }, "Blog0004", new List<string>() { "Image0000" }, $"Category00" + i), true, ButtonClickHandler, InitializeEvent));
+                Blogs.Add("Blog0005", new BlogControl(new Blog("Day 5", "Dev", "Test", "00.00.0005", new string[] { "a", "b", "c" }, "Blog0005", new List<string>() { "Image0000" }, $"Category00" + i), true, ButtonClickHandler, InitializeEvent));
+                Blogs.Add("Blog0006", new BlogControl(new Blog("Day 6", "Dev", "Test", "00.00.0006", new string[] { "a", "b", "c" }, "Blog0006", new List<string>() { "Image0000" }, $"Category00" + i), true, ButtonClickHandler, InitializeEvent));
+                Blogs.Add("Blog0007", new BlogControl(new Blog("Day 7", "Dev", "Test", "00.00.0007", new string[] { "a", "b", "c" }, "Blog0007", new List<string>() { "Image0000" }, $"Category00" + i), true, ButtonClickHandler, InitializeEvent));
+                Blogs.Add("Blog0008", new BlogControl(new Blog("Day 8", "Dev", "Test", "00.00.0008", new string[] { "a", "b", "c" }, "Blog0008", new List<string>() { "Image0000" }, $"Category00" + i), true, ButtonClickHandler, InitializeEvent));
+                Blogs.Add("Blog0009", new BlogControl(new Blog("Day 9", "Dev", "Test", "00.00.0009", new string[] { "a", "b", "c" }, "Blog0009", new List<string>() { "Image0000" }, $"Category00" + i), true, ButtonClickHandler, InitializeEvent));
                 CategoryControl x = new CategoryControl(new Category($"Category Test {i}", Blogs, $"Category00" + i));
                 Essentials.Categorys.Add($"Category00" + i, x);
             }
         }
         public void LoadHyperlinks(BlogControl _Blog)
         {
+            LinksPanel.Controls.Clear();
             foreach (string _imageID in Essentials.Categorys[_Blog.LocalBlog.CategoryID].LocalCategory.Blogs[_Blog.LocalBlog.ID].LocalBlog.ImageIDs)
             {
                 CustomLinkLabel _link = AddHyperlink(Essentials.Images[_imageID]);
@@ -120,6 +125,10 @@ namespace Blogz
             DescriptionTxtBox.Text = _Blog.LocalBlog.Description;
             BackButton.BlogID = _Blog.LocalBlog.ID;
             BackButton.CategoryID = _Blog.LocalBlog.CategoryID;
+            AddPictureButton.BlogID = _Blog.LocalBlog.ID;
+            AddPictureButton.CategoryID = _Blog.LocalBlog.CategoryID;
+            RemovePictureButton.BlogID = _Blog.LocalBlog.ID;
+            RemovePictureButton.CategoryID = _Blog.LocalBlog.CategoryID;
         }
         public void LoadBlogControls(BlogControl _Blog)
         {
@@ -133,7 +142,7 @@ namespace Blogz
                     box.ReadOnly = true;
                 }
                 BlogContentTxtBox.BorderStyle = BorderStyle.None;
-                BlogContentTxtBox.BackColor = Color.LightSlateGray;
+                BlogContentTxtBox.BackColor = Color.SlateGray;
                 BlogContentTxtBox.ReadOnly = true;
                 AddPictureButton.Visible = false;
                 RemovePictureButton.Visible = false;
@@ -201,9 +210,9 @@ namespace Blogz
             PictureCreatorLabel.Text = "Creator: " + link.Creator;
 
             string Path = link.Links[0].LinkData.ToString();
-            
-            if(Path != "") pictureBox1.BackgroundImage = System.Drawing.Image.FromFile(Path);
-            else pictureBox1.BackgroundImage = System.Drawing.Image.FromFile(Essentials.Path + "/Data/ErrorImage.png");
+
+            if (Path != "") pictureBox1.BackgroundImage = Essentials.ReadImage(Path);
+            else pictureBox1.BackgroundImage = Essentials.ReadImage(Essentials.Path + "/Data/ErrorImage.png");
             pictureBox1.BackgroundImageLayout = ImageLayout.Zoom; 
 
             Point pos = Essentials.GetMousePoint();
@@ -219,11 +228,101 @@ namespace Blogz
         {
             if (Essentials.Images.Count < 99999)
             {
-                ImageUploader _imageUploader = new ImageUploader(ButtonClickHandler);
+                ImageUploader _imageUploader = new ImageUploader(ButtonClickHandler, InitializeEvent);
                 _imageUploader.ShowDialog();
+                LoadImgView();
                 Initialize();
             }
             else MessageBox.Show("Sorry,\nbut you can Only have 99999 Images\nPlease Delete some, To Add More", "Info");
+        }
+
+        private void ImgManagerButton_Click(object sender, EventArgs e) => LoadImgView();
+        public void LoadImgView()
+        {
+            Essentials.ImagesSelected.Clear();
+            ImgViewFlowPanel.Controls.Clear();
+            foreach(Image _image in Essentials.Images.Values)
+            {
+                ImgViewFlowPanel.Controls.Add(new ImgViewControl(_image, SelectionUpdateHandler));
+            }
+            TabControl.SelectedTab = ImagesView;
+        }
+        public void SelectionUpdateHandler(object sender, EventArgs e)
+        {
+            int Count = Essentials.ImagesSelected.Count();
+            if(Count >= 1) ImgViewDeleteButton.Enabled = true; 
+            else ImgViewDeleteButton.Enabled = false;
+            if (Count == 1) ImgViewSelectedCount.Text = Essentials.ImagesSelected.Count().ToString() + " Image Selected";
+            else ImgViewSelectedCount.Text = Essentials.ImagesSelected.Count().ToString() + " Images Selected";
+        }
+        private void ImgViewBackButton_Click(object sender, EventArgs e) => TabControl.SelectedTab = MainView;
+
+        private void ImgViewDeleteButton_Click(object sender, EventArgs e)
+        {
+            foreach(Image _image in Essentials.ImagesSelected.Values.ToList())
+            {
+                Essentials.Images.Remove(_image.ID);
+                RemoveImageFromBlog(_image);
+                Essentials.UpdateData();
+                if (_image.Path != Essentials.Path + "/Data/ErrorImage.png")
+                {
+                    File.Copy(_image.Path, Essentials.Path + "/Data/DeletedImages/" + GetHighestDeletedID());
+                    File.Delete(_image.Path);
+                }
+                LoadImgView();
+            }
+        }
+        public void RemoveImageFromBlog(Image _image)
+        {
+            foreach(CategoryControl _category in Essentials.Categorys.Values)
+            {
+                foreach(BlogControl _Blog in _category.LocalCategory.Blogs.Values)
+                {
+                    if(_Blog.LocalBlog.ImageIDs.Contains(_image.ID))
+                    {
+                        _Blog.LocalBlog.ImageIDs.Remove(_image.ID);
+                    }
+                }
+            }
+            Essentials.UpdateData();
+            Initialize();
+        }
+        public void InitializeEvent(object sender, EventArgs e) => Initialize();
+        public string GetHighestDeletedID()
+        {
+            string CurrentHighestID = "DeletedImage00000";
+            DirectoryInfo dInfo = new DirectoryInfo(Essentials.Path + "/Data/DeletedImages/");
+
+            foreach (FileInfo _image in dInfo.GetFiles("*.png"))
+            {
+                string CurrName = Path.GetFileNameWithoutExtension(_image.Name);
+                if (Convert.ToInt32(CurrName.Split('e')[4]) > Convert.ToInt32(CurrentHighestID.Split('e')[4])) CurrentHighestID = CurrName;
+            }
+            int NumStartIndex = 13;
+            string NewNum = "";
+            for (int i = 13; i < 17; i++)
+            {
+                int CurrNum = Convert.ToInt32(CurrentHighestID[i].ToString());
+                if (CurrNum != 0)
+                {
+                    NumStartIndex = i;
+                    break;
+                }
+            }
+            for (int i = NumStartIndex; i < 17; i++)
+            {
+                NewNum += CurrentHighestID[i];
+            }
+            int Num = Convert.ToInt32(NewNum);
+            Num++;
+            NewNum = $"DeletedImage{Num,5:D5}.png";
+            return NewNum;
+        }
+
+        private void BlogViewPictureManager_Click(object sender, EventArgs e)
+        {
+            RemoveImageForm RIForm = new RemoveImageForm((CustomButton)sender, LinksPanel, InitializeEvent,TabControl);
+            RIForm.ShowDialog();
         }
     }
 }
