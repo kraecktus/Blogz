@@ -324,5 +324,17 @@ namespace Blogz
             RemoveImageForm RIForm = new RemoveImageForm((CustomButton)sender, LinksPanel, InitializeEvent,TabControl);
             RIForm.ShowDialog();
         }
+
+        private void CategoryCreateButton_Click(object sender, EventArgs e)
+        {
+            CategoryCreateForm Form = new CategoryCreateForm(ClickState.Open, InitializeEvent);
+            Form.ShowDialog();
+        }
+
+        private void CategoryDeleteButton_Click(object sender, EventArgs e)
+        {
+            CategoryCreateForm Form = new CategoryCreateForm(ClickState.Delete, InitializeEvent);
+            Form.ShowDialog();
+        }
     }
 }

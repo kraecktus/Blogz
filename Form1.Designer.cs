@@ -34,8 +34,6 @@
             this.ImgManagerButton = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
             this.BlogView = new System.Windows.Forms.TabPage();
-            this.RemovePictureButton = new Blogz.CustomButton();
-            this.AddPictureButton = new Blogz.CustomButton();
             this.DescriptionTxtBox = new System.Windows.Forms.TextBox();
             this.LinksPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.LinksPanelLabel = new System.Windows.Forms.Label();
@@ -51,13 +49,17 @@
             this.CreatorTxtBox = new System.Windows.Forms.TextBox();
             this.CreationDateTxtBox = new System.Windows.Forms.TextBox();
             this.TitleTxtBox = new System.Windows.Forms.TextBox();
-            this.BackButton = new Blogz.CustomButton();
             this.ImagesView = new System.Windows.Forms.TabPage();
             this.ImgUploadButton = new System.Windows.Forms.Button();
             this.ImgViewDeleteButton = new System.Windows.Forms.Button();
             this.ImgViewSelectedCount = new System.Windows.Forms.Label();
             this.ImgViewFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.CategoryCreateButton = new System.Windows.Forms.Button();
+            this.RemovePictureButton = new Blogz.CustomButton();
+            this.AddPictureButton = new Blogz.CustomButton();
+            this.BackButton = new Blogz.CustomButton();
             this.ImgViewBackButton = new Blogz.CustomButton();
+            this.CategoryDeleteButton = new System.Windows.Forms.Button();
             this.TabControl.SuspendLayout();
             this.MainView.SuspendLayout();
             this.BlogView.SuspendLayout();
@@ -95,6 +97,8 @@
             // 
             // MainView
             // 
+            this.MainView.Controls.Add(this.CategoryDeleteButton);
+            this.MainView.Controls.Add(this.CategoryCreateButton);
             this.MainView.Controls.Add(this.ImgManagerButton);
             this.MainView.Controls.Add(this.ExitButton);
             this.MainView.Controls.Add(this.CategoryFlowPanel);
@@ -108,7 +112,7 @@
             // 
             // ImgManagerButton
             // 
-            this.ImgManagerButton.Location = new System.Drawing.Point(667, 35);
+            this.ImgManagerButton.Location = new System.Drawing.Point(667, 7);
             this.ImgManagerButton.Name = "ImgManagerButton";
             this.ImgManagerButton.Size = new System.Drawing.Size(97, 23);
             this.ImgManagerButton.TabIndex = 3;
@@ -149,32 +153,6 @@
             this.BlogView.Size = new System.Drawing.Size(780, 451);
             this.BlogView.TabIndex = 1;
             this.BlogView.Text = "tabPage2";
-            // 
-            // RemovePictureButton
-            // 
-            this.RemovePictureButton.BlogID = null;
-            this.RemovePictureButton.CategoryID = null;
-            this.RemovePictureButton.ClickState = Blogz.ClickState.Delete;
-            this.RemovePictureButton.Location = new System.Drawing.Point(707, 178);
-            this.RemovePictureButton.Name = "RemovePictureButton";
-            this.RemovePictureButton.Size = new System.Drawing.Size(67, 23);
-            this.RemovePictureButton.TabIndex = 20;
-            this.RemovePictureButton.Text = "Remove";
-            this.RemovePictureButton.UseVisualStyleBackColor = true;
-            this.RemovePictureButton.Click += new System.EventHandler(this.BlogViewPictureManager_Click);
-            // 
-            // AddPictureButton
-            // 
-            this.AddPictureButton.BlogID = null;
-            this.AddPictureButton.CategoryID = null;
-            this.AddPictureButton.ClickState = Blogz.ClickState.Open;
-            this.AddPictureButton.Location = new System.Drawing.Point(634, 178);
-            this.AddPictureButton.Name = "AddPictureButton";
-            this.AddPictureButton.Size = new System.Drawing.Size(67, 23);
-            this.AddPictureButton.TabIndex = 19;
-            this.AddPictureButton.Text = "Add";
-            this.AddPictureButton.UseVisualStyleBackColor = true;
-            this.AddPictureButton.Click += new System.EventHandler(this.BlogViewPictureManager_Click);
             // 
             // DescriptionTxtBox
             // 
@@ -320,20 +298,6 @@
             this.TitleTxtBox.TabIndex = 2;
             this.TitleTxtBox.TabStop = false;
             // 
-            // BackButton
-            // 
-            this.BackButton.BlogID = "Blog0000";
-            this.BackButton.CategoryID = "Category0000";
-            this.BackButton.ClickState = Blogz.ClickState.Open;
-            this.BackButton.Location = new System.Drawing.Point(699, 420);
-            this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(75, 23);
-            this.BackButton.TabIndex = 16;
-            this.BackButton.TabStop = false;
-            this.BackButton.Text = "Back";
-            this.BackButton.UseVisualStyleBackColor = true;
-            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
-            // 
             // ImagesView
             // 
             this.ImagesView.BackColor = System.Drawing.SystemColors.Control;
@@ -387,6 +351,56 @@
             this.ImgViewFlowPanel.Size = new System.Drawing.Size(679, 451);
             this.ImgViewFlowPanel.TabIndex = 18;
             // 
+            // CategoryCreateButton
+            // 
+            this.CategoryCreateButton.Location = new System.Drawing.Point(667, 36);
+            this.CategoryCreateButton.Name = "CategoryCreateButton";
+            this.CategoryCreateButton.Size = new System.Drawing.Size(97, 23);
+            this.CategoryCreateButton.TabIndex = 4;
+            this.CategoryCreateButton.Text = "Create Category";
+            this.CategoryCreateButton.UseVisualStyleBackColor = true;
+            this.CategoryCreateButton.Click += new System.EventHandler(this.CategoryCreateButton_Click);
+            // 
+            // RemovePictureButton
+            // 
+            this.RemovePictureButton.BlogID = null;
+            this.RemovePictureButton.CategoryID = null;
+            this.RemovePictureButton.ClickState = Blogz.ClickState.Delete;
+            this.RemovePictureButton.Location = new System.Drawing.Point(707, 178);
+            this.RemovePictureButton.Name = "RemovePictureButton";
+            this.RemovePictureButton.Size = new System.Drawing.Size(67, 23);
+            this.RemovePictureButton.TabIndex = 20;
+            this.RemovePictureButton.Text = "Remove";
+            this.RemovePictureButton.UseVisualStyleBackColor = true;
+            this.RemovePictureButton.Click += new System.EventHandler(this.BlogViewPictureManager_Click);
+            // 
+            // AddPictureButton
+            // 
+            this.AddPictureButton.BlogID = null;
+            this.AddPictureButton.CategoryID = null;
+            this.AddPictureButton.ClickState = Blogz.ClickState.Open;
+            this.AddPictureButton.Location = new System.Drawing.Point(634, 178);
+            this.AddPictureButton.Name = "AddPictureButton";
+            this.AddPictureButton.Size = new System.Drawing.Size(67, 23);
+            this.AddPictureButton.TabIndex = 19;
+            this.AddPictureButton.Text = "Add";
+            this.AddPictureButton.UseVisualStyleBackColor = true;
+            this.AddPictureButton.Click += new System.EventHandler(this.BlogViewPictureManager_Click);
+            // 
+            // BackButton
+            // 
+            this.BackButton.BlogID = "Blog0000";
+            this.BackButton.CategoryID = "Category0000";
+            this.BackButton.ClickState = Blogz.ClickState.Open;
+            this.BackButton.Location = new System.Drawing.Point(699, 420);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(75, 23);
+            this.BackButton.TabIndex = 16;
+            this.BackButton.TabStop = false;
+            this.BackButton.Text = "Back";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
             // ImgViewBackButton
             // 
             this.ImgViewBackButton.BlogID = "Blog0000";
@@ -400,6 +414,16 @@
             this.ImgViewBackButton.Text = "Back";
             this.ImgViewBackButton.UseVisualStyleBackColor = true;
             this.ImgViewBackButton.Click += new System.EventHandler(this.ImgViewBackButton_Click);
+            // 
+            // CategoryDeleteButton
+            // 
+            this.CategoryDeleteButton.Location = new System.Drawing.Point(667, 65);
+            this.CategoryDeleteButton.Name = "CategoryDeleteButton";
+            this.CategoryDeleteButton.Size = new System.Drawing.Size(97, 23);
+            this.CategoryDeleteButton.TabIndex = 5;
+            this.CategoryDeleteButton.Text = "Delete Category";
+            this.CategoryDeleteButton.UseVisualStyleBackColor = true;
+            this.CategoryDeleteButton.Click += new System.EventHandler(this.CategoryDeleteButton_Click);
             // 
             // Form1
             // 
@@ -456,6 +480,8 @@
         private System.Windows.Forms.Button ImgUploadButton;
         private CustomButton AddPictureButton;
         private CustomButton RemovePictureButton;
+        private System.Windows.Forms.Button CategoryCreateButton;
+        private System.Windows.Forms.Button CategoryDeleteButton;
     }
 }
 
