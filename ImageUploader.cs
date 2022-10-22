@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -59,47 +60,21 @@ namespace Blogz
             else if (CreationTxtBox.Text == "") MessageBox.Show("Please Enter a Valid Creation Date!", "Info");
             else
             {
-                string NewID = GetHighestID();
+                string NewID = IdGetter.GetHighestImageID();
                 try
                 {
                     File.Copy(Path, Essentials.Path + "/Data/Images/" + NewID + ".png");
-                    Essentials.Images.Add(NewID, new Image(DisplayTtxtBox.Text, TitleTxtBox.Text, CreatorTxtBox.Text, CreationTxtBox.Text, Path, NewID));
+                    Essentials.Images.Add(NewID, new Image(DisplayTtxtBox.Text, TitleTxtBox.Text, CreatorTxtBox.Text, CreationTxtBox.Text, "/Data/Images/" + NewID + ".png", NewID));
                     Essentials.UpdateData();
                     Essentials.LoadData(FormsButtonClickHandler, FormsInitializeHandler);
                 }
-                catch
+                catch (Exception x)
                 {
-                    MessageBox.Show("Something went Wrong when Trying to Upload the File!", "Error");
+                    MessageBox.Show("Something went Wrong when Trying to Upload the File!\n" + x, "Error");
                 }
                 Close();
             }
         }
-        public string GetHighestID()
-        {
-            string CurrentHighestID = "Image00000";
-            foreach (Image _image in Essentials.Images.Values)
-            {
-                if (Convert.ToInt32(_image.ID.Split('e')[1]) > Convert.ToInt32(CurrentHighestID.Split('e')[1])) CurrentHighestID = _image.ID;
-            }
-            int NumStartIndex = 5;
-            string NewNum = "";
-            for (int i = 5; i < 10; i++)
-            {
-                int CurrNum = Convert.ToInt32(CurrentHighestID[i].ToString());
-                if (CurrNum != 0)
-                {
-                    NumStartIndex = i;
-                    break;
-                }
-            }
-            for (int i = NumStartIndex; i < 10; i++)
-            {
-                NewNum += CurrentHighestID[i];
-            }
-            int Num = Convert.ToInt32(NewNum);
-            Num++;
-            NewNum = $"Image{Num,5:D5}";
-            return NewNum;
-        }
+        
     }
 }

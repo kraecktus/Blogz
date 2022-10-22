@@ -31,6 +31,8 @@
             this.CategoryFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.TabControl = new System.Windows.Forms.TabControl();
             this.MainView = new System.Windows.Forms.TabPage();
+            this.CategoryDeleteButton = new System.Windows.Forms.Button();
+            this.CategoryCreateButton = new System.Windows.Forms.Button();
             this.ImgManagerButton = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
             this.BlogView = new System.Windows.Forms.TabPage();
@@ -41,7 +43,6 @@
             this.PictureCreatorLabel = new System.Windows.Forms.Label();
             this.PictureCdateLabel = new System.Windows.Forms.Label();
             this.PictureTitleLabel = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.BlogContentTxtBox = new System.Windows.Forms.RichTextBox();
             this.CreationLBL = new System.Windows.Forms.Label();
             this.AuthorLBL = new System.Windows.Forms.Label();
@@ -54,18 +55,18 @@
             this.ImgViewDeleteButton = new System.Windows.Forms.Button();
             this.ImgViewSelectedCount = new System.Windows.Forms.Label();
             this.ImgViewFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.CategoryCreateButton = new System.Windows.Forms.Button();
             this.RemovePictureButton = new Blogz.CustomButton();
             this.AddPictureButton = new Blogz.CustomButton();
             this.BackButton = new Blogz.CustomButton();
             this.ImgViewBackButton = new Blogz.CustomButton();
-            this.CategoryDeleteButton = new System.Windows.Forms.Button();
+            this.CreateBlogButton = new Blogz.CustomButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.TabControl.SuspendLayout();
             this.MainView.SuspendLayout();
             this.BlogView.SuspendLayout();
             this.PicturePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.ImagesView.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // CategoryFlowPanel
@@ -97,6 +98,7 @@
             // 
             // MainView
             // 
+            this.MainView.Controls.Add(this.CreateBlogButton);
             this.MainView.Controls.Add(this.CategoryDeleteButton);
             this.MainView.Controls.Add(this.CategoryCreateButton);
             this.MainView.Controls.Add(this.ImgManagerButton);
@@ -109,6 +111,26 @@
             this.MainView.TabIndex = 0;
             this.MainView.Text = "tabPage1";
             this.MainView.UseVisualStyleBackColor = true;
+            // 
+            // CategoryDeleteButton
+            // 
+            this.CategoryDeleteButton.Location = new System.Drawing.Point(667, 65);
+            this.CategoryDeleteButton.Name = "CategoryDeleteButton";
+            this.CategoryDeleteButton.Size = new System.Drawing.Size(97, 23);
+            this.CategoryDeleteButton.TabIndex = 5;
+            this.CategoryDeleteButton.Text = "Delete Category";
+            this.CategoryDeleteButton.UseVisualStyleBackColor = true;
+            this.CategoryDeleteButton.Click += new System.EventHandler(this.CategoryDeleteButton_Click);
+            // 
+            // CategoryCreateButton
+            // 
+            this.CategoryCreateButton.Location = new System.Drawing.Point(667, 36);
+            this.CategoryCreateButton.Name = "CategoryCreateButton";
+            this.CategoryCreateButton.Size = new System.Drawing.Size(97, 23);
+            this.CategoryCreateButton.TabIndex = 4;
+            this.CategoryCreateButton.Text = "Create Category";
+            this.CategoryCreateButton.UseVisualStyleBackColor = true;
+            this.CategoryCreateButton.Click += new System.EventHandler(this.CategoryCreateButton_Click);
             // 
             // ImgManagerButton
             // 
@@ -221,14 +243,6 @@
             this.PictureTitleLabel.Size = new System.Drawing.Size(208, 15);
             this.PictureTitleLabel.TabIndex = 11;
             this.PictureTitleLabel.Text = "Title";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(212, 125);
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
             // 
             // BlogContentTxtBox
             // 
@@ -351,16 +365,6 @@
             this.ImgViewFlowPanel.Size = new System.Drawing.Size(679, 451);
             this.ImgViewFlowPanel.TabIndex = 18;
             // 
-            // CategoryCreateButton
-            // 
-            this.CategoryCreateButton.Location = new System.Drawing.Point(667, 36);
-            this.CategoryCreateButton.Name = "CategoryCreateButton";
-            this.CategoryCreateButton.Size = new System.Drawing.Size(97, 23);
-            this.CategoryCreateButton.TabIndex = 4;
-            this.CategoryCreateButton.Text = "Create Category";
-            this.CategoryCreateButton.UseVisualStyleBackColor = true;
-            this.CategoryCreateButton.Click += new System.EventHandler(this.CategoryCreateButton_Click);
-            // 
             // RemovePictureButton
             // 
             this.RemovePictureButton.BlogID = null;
@@ -415,15 +419,26 @@
             this.ImgViewBackButton.UseVisualStyleBackColor = true;
             this.ImgViewBackButton.Click += new System.EventHandler(this.ImgViewBackButton_Click);
             // 
-            // CategoryDeleteButton
+            // CreateBlogButton
             // 
-            this.CategoryDeleteButton.Location = new System.Drawing.Point(667, 65);
-            this.CategoryDeleteButton.Name = "CategoryDeleteButton";
-            this.CategoryDeleteButton.Size = new System.Drawing.Size(97, 23);
-            this.CategoryDeleteButton.TabIndex = 5;
-            this.CategoryDeleteButton.Text = "Delete Category";
-            this.CategoryDeleteButton.UseVisualStyleBackColor = true;
-            this.CategoryDeleteButton.Click += new System.EventHandler(this.CategoryDeleteButton_Click);
+            this.CreateBlogButton.BlogID = null;
+            this.CreateBlogButton.CategoryID = null;
+            this.CreateBlogButton.ClickState = Blogz.ClickState.Open;
+            this.CreateBlogButton.Location = new System.Drawing.Point(667, 94);
+            this.CreateBlogButton.Name = "CreateBlogButton";
+            this.CreateBlogButton.Size = new System.Drawing.Size(97, 23);
+            this.CreateBlogButton.TabIndex = 6;
+            this.CreateBlogButton.Text = "Create Blog";
+            this.CreateBlogButton.UseVisualStyleBackColor = true;
+            this.CreateBlogButton.Click += new System.EventHandler(this.CreateBlogButton_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(212, 125);
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
             // 
             // Form1
             // 
@@ -441,9 +456,9 @@
             this.BlogView.PerformLayout();
             this.PicturePanel.ResumeLayout(false);
             this.PicturePanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ImagesView.ResumeLayout(false);
             this.ImagesView.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -482,6 +497,7 @@
         private CustomButton RemovePictureButton;
         private System.Windows.Forms.Button CategoryCreateButton;
         private System.Windows.Forms.Button CategoryDeleteButton;
+        private CustomButton CreateBlogButton;
     }
 }
 

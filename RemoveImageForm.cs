@@ -12,13 +12,13 @@ namespace Blogz
         public CustomButton Button;
         public FlowLayoutPanel Panel;
         public EventHandler FormsInitializeHandler;
-        public TabControl FormsTabControl;
-        public RemoveImageForm(CustomButton _Button, FlowLayoutPanel _Panel, EventHandler _FormsInitializeHandler, TabControl _TabControl)
+        public EventHandler FormsLoadHyperlinks;
+        public RemoveImageForm(CustomButton _Button, FlowLayoutPanel _Panel, EventHandler _FormsInitializeHandler, EventHandler _LoadHyperlinks)
         {
             Button = _Button;
             Panel = _Panel;
             FormsInitializeHandler = _FormsInitializeHandler;
-            FormsTabControl = _TabControl;
+            FormsLoadHyperlinks = _LoadHyperlinks;
             InitializeComponent();
             Initialize();
         }
@@ -78,7 +78,7 @@ namespace Blogz
                 Essentials.Categorys[Button.CategoryID].LocalCategory.Blogs[Button.BlogID].LocalBlog.ImageIDs.Add(_Image.LocalImage.ID);
                 Essentials.UpdateData();
                 FormsInitializeHandler.Invoke(sender, e);
-                FormsTabControl.SelectedIndex = 0;
+                FormsLoadHyperlinks.Invoke(Essentials.Categorys[Button.CategoryID].LocalCategory.Blogs[Button.BlogID], e);
             }
             this.Close();
         }

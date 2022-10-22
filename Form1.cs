@@ -47,7 +47,7 @@ namespace Blogz
                 CustomLinkLabel link = new CustomLinkLabel();
                 link.Text = _image.DisplayText;
 
-                if(!File.Exists(_image.Path)) return null;
+                if(!File.Exists(Essentials.Path + "/" + _image.Path)) return null;
                 else
                 {
                     link.Title = _image.Title;
@@ -85,8 +85,9 @@ namespace Blogz
                 Essentials.Categorys.Add($"Category00" + i, x);
             }
         }
-        public void LoadHyperlinks(BlogControl _Blog)
+        public void LoadHyperlinks(object Blog, EventArgs e)
         {
+            BlogControl _Blog = (BlogControl)Blog;
             LinksPanel.Controls.Clear();
             foreach (string _imageID in Essentials.Categorys[_Blog.LocalBlog.CategoryID].LocalCategory.Blogs[_Blog.LocalBlog.ID].LocalBlog.ImageIDs)
             {
@@ -105,12 +106,8 @@ namespace Blogz
             {
                 TabControl.SelectedTab = BlogView;
                 LoadBlog(Blog);
-                LoadHyperlinks(Blog);
+                LoadHyperlinks(Blog, e);
                 LoadBlogControls(Blog);
-            }
-            else
-            {
-                // TODO: Delete
             }
         }
         
@@ -212,7 +209,7 @@ namespace Blogz
             string Path = link.Links[0].LinkData.ToString();
 
             if (Path != "") pictureBox1.BackgroundImage = Essentials.ReadImage(Path);
-            else pictureBox1.BackgroundImage = Essentials.ReadImage(Essentials.Path + "/Data/ErrorImage.png");
+            else pictureBox1.BackgroundImage = Essentials.ReadImage("/Data/ErrorImage.png");
             pictureBox1.BackgroundImageLayout = ImageLayout.Zoom; 
 
             Point pos = Essentials.GetMousePoint();
@@ -264,12 +261,13 @@ namespace Blogz
                 Essentials.Images.Remove(_image.ID);
                 RemoveImageFromBlog(_image);
                 Essentials.UpdateData();
-                if (_image.Path != Essentials.Path + "/Data/ErrorImage.png")
+                if (Essentials.Path + "/" + _image.Path != Essentials.Path + "/Data/ErrorImage.png")
                 {
-                    File.Copy(_image.Path, Essentials.Path + "/Data/DeletedImages/" + GetHighestDeletedID());
-                    File.Delete(_image.Path);
+                    File.Copy(Essentials.Path + "/" + _image.Path, Essentials.Path + "/Data/DeletedImages/" + IdGetter.GetHighestDeletedID());
+                    File.Delete(Essentials.Path + "/" + _image.Path);
                 }
                 LoadImgView();
+                SelectionUpdateHandler(sender, e);
             }
         }
         public void RemoveImageFromBlog(Image _image)
@@ -288,53 +286,42 @@ namespace Blogz
             Initialize();
         }
         public void InitializeEvent(object sender, EventArgs e) => Initialize();
-        public string GetHighestDeletedID()
-        {
-            string CurrentHighestID = "DeletedImage00000";
-            DirectoryInfo dInfo = new DirectoryInfo(Essentials.Path + "/Data/DeletedImages/");
-
-            foreach (FileInfo _image in dInfo.GetFiles("*.png"))
-            {
-                string CurrName = Path.GetFileNameWithoutExtension(_image.Name);
-                if (Convert.ToInt32(CurrName.Split('e')[4]) > Convert.ToInt32(CurrentHighestID.Split('e')[4])) CurrentHighestID = CurrName;
-            }
-            int NumStartIndex = 13;
-            string NewNum = "";
-            for (int i = 13; i < 17; i++)
-            {
-                int CurrNum = Convert.ToInt32(CurrentHighestID[i].ToString());
-                if (CurrNum != 0)
-                {
-                    NumStartIndex = i;
-                    break;
-                }
-            }
-            for (int i = NumStartIndex; i < 17; i++)
-            {
-                NewNum += CurrentHighestID[i];
-            }
-            int Num = Convert.ToInt32(NewNum);
-            Num++;
-            NewNum = $"DeletedImage{Num,5:D5}.png";
-            return NewNum;
-        }
+        
 
         private void BlogViewPictureManager_Click(object sender, EventArgs e)
         {
-            RemoveImageForm RIForm = new RemoveImageForm((CustomButton)sender, LinksPanel, InitializeEvent,TabControl);
+            RemoveImageForm RIForm = new RemoveImageForm((CustomButton)sender, LinksPanel, InitializeEvent, LoadHyperlinks);
             RIForm.ShowDialog();
         }
 
         private void CategoryCreateButton_Click(object sender, EventArgs e)
         {
-            CategoryCreateForm Form = new CategoryCreateForm(ClickState.Open, InitializeEvent);
+            CategoryCreateForm Form = new CategoryCreateForm(ClickState.Edit, ButtonClickHandler, InitializeEvent);
             Form.ShowDialog();
         }
 
         private void CategoryDeleteButton_Click(object sender, EventArgs e)
         {
-            CategoryCreateForm Form = new CategoryCreateForm(ClickState.Delete, InitializeEvent);
+            CategoryCreateForm Form = new CategoryCreateForm(ClickState.Delete, ButtonClickHandler, InitializeEvent);
             Form.ShowDialog();
+        }
+
+        private void CreateBlogButton_Click(object sender, EventArgs e)
+        {
+            string BlogID = IdGetter.GetHighestBlogID();
+            CategoryCreateForm Form = new CategoryCreateForm(ClickState.Open, ButtonClickHandler, InitializeEvent, BlogID);
+            Form.ShowDialog();
+            if (Form.IsSuccess == true)
+            {
+                BlogControl _Blog = Essentials.Categorys[Form.LocalBlog.LocalBlog.CategoryID].LocalCategory.Blogs[Form.LocalBlog.LocalBlog.ID];
+                Console.WriteLine("Created");
+                _Blog.LocalClickState = ClickState.Edit;
+                LoadBlog(_Blog);
+                LoadHyperlinks(_Blog, e);
+                LoadBlogControls(_Blog);
+                TabControl.SelectedTab = BlogView;
+            }
+            else Console.WriteLine("Stopped");
         }
     }
 }

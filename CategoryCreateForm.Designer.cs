@@ -70,6 +70,7 @@
             this.CancelButton.TabIndex = 3;
             this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // TitleLabel
             // 
@@ -94,6 +95,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CategoryCreateForm";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create Category";
             this.ResumeLayout(false);
             this.PerformLayout();

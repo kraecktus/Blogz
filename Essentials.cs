@@ -27,10 +27,10 @@ namespace Blogz
                 MessageBox.Show(value, "Error");
             }
         }
-
+        
         public static System.Drawing.Image ReadImage(string Path)
         {
-            using (var ms = new MemoryStream(File.ReadAllBytes(Path)))
+            using (var ms = new MemoryStream(File.ReadAllBytes(Essentials.Path + "/" + Path)))
             {
                 System.Drawing.Image _image = System.Drawing.Image.FromStream(ms);
                 ms.Flush();
