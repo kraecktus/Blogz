@@ -42,12 +42,11 @@
             this.BlogsPanel.AutoScroll = true;
             this.BlogsPanel.AutoSize = true;
             this.BlogsPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BlogsPanel.BackColor = System.Drawing.Color.LightSlateGray;
+            this.BlogsPanel.BackColor = System.Drawing.Color.Transparent;
             this.BlogsPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.BlogsPanel.Location = new System.Drawing.Point(10, 36);
             this.BlogsPanel.Name = "BlogsPanel";
-            this.BlogsPanel.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.BlogsPanel.Size = new System.Drawing.Size(5, 0);
+            this.BlogsPanel.Size = new System.Drawing.Size(0, 0);
             this.BlogsPanel.TabIndex = 0;
             // 
             // TitlePanel
@@ -62,12 +61,12 @@
             // 
             // OpenCloseButton
             // 
-            this.OpenCloseButton.BackColor = System.Drawing.Color.LightSlateGray;
+            this.OpenCloseButton.BackColor = System.Drawing.Color.Transparent;
             this.OpenCloseButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("OpenCloseButton.BackgroundImage")));
             this.OpenCloseButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.OpenCloseButton.FlatAppearance.BorderSize = 0;
-            this.OpenCloseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightSlateGray;
-            this.OpenCloseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSlateGray;
+            this.OpenCloseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.OpenCloseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.OpenCloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OpenCloseButton.ForeColor = System.Drawing.Color.Transparent;
             this.OpenCloseButton.Location = new System.Drawing.Point(604, 6);
@@ -92,7 +91,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.Color.LightSlateGray;
+            this.BackColor = System.Drawing.Color.CornflowerBlue;
             this.Controls.Add(this.TitlePanel);
             this.Controls.Add(this.BlogsPanel);
             this.Name = "CategoryControl";

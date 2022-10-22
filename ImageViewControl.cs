@@ -31,8 +31,6 @@ namespace Blogz
             ImgViewCreationLabel.Text = LocalImage.Creation;
             ImgViewCreatorLabel.Text = LocalImage.Creator;
         }
-        // TODO: Remove Images from Blogs
-        // TODO: Put Images into Garbage Folder
         private void OCButton_Click(object sender, EventArgs e)
         {
             if (IsOpen)

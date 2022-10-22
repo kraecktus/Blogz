@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -22,8 +23,8 @@ namespace Blogz
         public void Initialize()
         {
             this.Text = "Blogz";
-            if (!Directory.Exists(Essentials.Path + "/Data")) Directory.CreateDirectory(Essentials.Path + "/Data");
-
+            Essentials.LoadConfig();
+            Essentials.CheckFiles();
             Essentials.LoadData(ButtonClickHandler, InitializeEvent);
 
             PicturePanel.Visible = false;
@@ -56,7 +57,7 @@ namespace Blogz
                     link.MouseHover += BlogContentTxtBox_LinkHover;
                     link.LinkClicked += (object sender, LinkLabelLinkClickedEventArgs e) => Process.Start("explorer.exe", e.Link.LinkData.ToString());
                     link.MouseLeave += (object sender, EventArgs e) => PicturePanel.Visible = false;
-                    
+                    link.LinkColor = Color.Black;
                     LinkLabel.Link data = new LinkLabel.Link();
                     data.LinkData = _image.Path;
                     link.Links.Add(data);
@@ -135,11 +136,11 @@ namespace Blogz
                 foreach(TextBox box in ViewControls)
                 {
                     box.BorderStyle = BorderStyle.None;
-                    box.BackColor = Color.LightSlateGray;
+                    box.BackColor = Color.RoyalBlue;
                     box.ReadOnly = true;
                 }
                 BlogContentTxtBox.BorderStyle = BorderStyle.None;
-                BlogContentTxtBox.BackColor = Color.SlateGray;
+                BlogContentTxtBox.BackColor = Color.RoyalBlue;
                 BlogContentTxtBox.ReadOnly = true;
                 AddPictureButton.Visible = false;
                 RemovePictureButton.Visible = false;
@@ -150,11 +151,11 @@ namespace Blogz
                 foreach (TextBox box in ViewControls)
                 {
                     box.BorderStyle = BorderStyle.Fixed3D;
-                    box.BackColor = Color.White;
+                    box.BackColor = Color.CornflowerBlue;
                     box.ReadOnly = false;
                 }
                 BlogContentTxtBox.BorderStyle = BorderStyle.Fixed3D;
-                BlogContentTxtBox.BackColor = Color.White;
+                BlogContentTxtBox.BackColor = Color.CornflowerBlue;
                 BlogContentTxtBox.ReadOnly = false;
                 AddPictureButton.Visible = true;
                 RemovePictureButton.Visible = true;
@@ -230,7 +231,7 @@ namespace Blogz
                 LoadImgView();
                 Initialize();
             }
-            else MessageBox.Show("Sorry,\nbut you can Only have 99999 Images\nPlease Delete some, To Add More", "Info");
+            else Essentials.ErrorMessage = "Sorry,\nbut you can Only have 99999 Images\nPlease Delete some, To Add More";
         }
 
         private void ImgManagerButton_Click(object sender, EventArgs e) => LoadImgView();
@@ -322,6 +323,59 @@ namespace Blogz
                 TabControl.SelectedTab = BlogView;
             }
             else Console.WriteLine("Stopped");
+        }
+
+        private void PathChooseButton_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog Dialog = new FolderBrowserDialog();
+            Dialog.SelectedPath = Essentials.Path;
+            Dialog.Description = "Please Choose a Folder Container the Data Folder for Blogz";
+            Dialog.ShowDialog();
+            if(Dialog.SelectedPath != "")
+            {
+                Essentials.Path = Dialog.SelectedPath;
+                Essentials.UpdateConfig();
+                Initialize();
+            }
+        }
+
+        private void BackupButton_Click(object sender, EventArgs e) => Essentials.BackUpData();
+
+        private void LoadBackupButton_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to a Backup?\nThis will Delete all Your Current Data!", "Warning", MessageBoxButtons.YesNo);
+            if(result == DialogResult.Yes)
+            {
+                CategoryCreateForm cCreate = new CategoryCreateForm(ClickState.Backup, Essentials.PlaceHolderEvent, Essentials.PlaceHolderEvent);
+                cCreate.ShowDialog();
+                if(cCreate.SelectedBackup != "")
+                {
+                    DialogResult _result = MessageBox.Show("Are you sure you want to Load the Backup " + cCreate.SelectedBackup + "?", "Info", MessageBoxButtons.YesNo);
+                    if(_result == DialogResult.Yes)
+                    {
+                        File.Delete(Essentials.Path + "/Data/Blogs.json");
+                        File.Delete(Essentials.Path + "/Data/Categorys.json");
+                        File.Delete(Essentials.Path + "/Data/ImagesManager.json");
+                        Directory.Delete(Essentials.Path + "/Data/Images", true);
+                        ZipFile.ExtractToDirectory(Essentials.Path + "/Data/Backups/" + cCreate.SelectedBackup + ".zip", Essentials.Path + "/Data/");
+                        Initialize();
+                        MessageBox.Show("Successfully Loaded Backup!", "Info");
+                    }
+                }
+            }
+        }
+
+        private void RenameCatButton_Click(object sender, EventArgs e)
+        {
+            string CatID = "";
+            CategoryCreateForm _CatSelector = new CategoryCreateForm(ClickState.RenameSelect, ButtonClickHandler, InitializeEvent);
+            _CatSelector.ShowDialog();
+            if(_CatSelector.IsSuccess)
+            {
+                CatID = _CatSelector.ID;
+                CategoryCreateForm _CatRename = new CategoryCreateForm(ClickState.Rename, ButtonClickHandler, InitializeEvent, CatID);
+                _CatRename.ShowDialog();
+            }
         }
     }
 }

@@ -53,7 +53,7 @@
             // 
             this.ImgViewPictureBox.Location = new System.Drawing.Point(3, 3);
             this.ImgViewPictureBox.Name = "ImgViewPictureBox";
-            this.ImgViewPictureBox.Size = new System.Drawing.Size(212, 125);
+            this.ImgViewPictureBox.Size = new System.Drawing.Size(198, 125);
             this.ImgViewPictureBox.TabIndex = 0;
             this.ImgViewPictureBox.TabStop = false;
             this.ImgViewPictureBox.Click += new System.EventHandler(this.ImgViewPictureBox_Click);
@@ -64,7 +64,7 @@
             this.OCButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.OCButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaption;
             this.OCButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OCButton.Location = new System.Drawing.Point(191, 128);
+            this.OCButton.Location = new System.Drawing.Point(176, 128);
             this.OCButton.Name = "OCButton";
             this.OCButton.Size = new System.Drawing.Size(25, 25);
             this.OCButton.TabIndex = 3;
@@ -110,7 +110,7 @@
             this.Controls.Add(this.ImgViewCheckBox);
             this.Controls.Add(this.ImgViewPictureBox);
             this.Name = "ImgViewControl";
-            this.Size = new System.Drawing.Size(219, 207);
+            this.Size = new System.Drawing.Size(207, 207);
             ((System.ComponentModel.ISupportInitialize)(this.ImgViewPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

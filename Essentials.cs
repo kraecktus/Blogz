@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -11,11 +12,12 @@ namespace Blogz
 {
     public class Essentials
     {
-        // TODO: Backup Funktion
         public static Dictionary<string, CategoryControl> Categorys = new Dictionary<string, CategoryControl>();
         public static Dictionary<string, Image> Images = new Dictionary<string, Image>();
         public static Dictionary<string, Image> ImagesSelected = new Dictionary<string, Image>();
+        public static Config Config = new Config();
         public static EventHandler PlaceHolderEvent;
+
         public static string ErrorMessage
         {
             get
@@ -38,13 +40,63 @@ namespace Blogz
                 return _image;
             }
         }
-        // TODO: Make a Path Selector
         public static string Path = "C:/Blogz";
         public static Blog ErrorBlog(string ErrorMessage)
         {
             Blog _Blog = new Blog("Info", "Dev", ErrorMessage, "00.00.0000", new string[] { "" }, "Blog00000", new List<string>(), "Category00000");
 
             return _Blog;
+        }
+        public static void CheckFiles()
+        {
+            if (!Directory.Exists(Essentials.Path + "/Data")) Directory.CreateDirectory(Essentials.Path + "/Data");
+            if (!Directory.Exists("C:/Blogz")) Directory.CreateDirectory("C:/Blogz");
+            if (!Directory.Exists(Essentials.Path + "/Data/DeletedImages"))  Directory.CreateDirectory(Essentials.Path + "/Data/DeletedImages");
+            if (!Directory.Exists(Essentials.Path + "/Data/Images")) Directory.CreateDirectory(Essentials.Path + "/Data/Images");
+            if (!Directory.Exists(Essentials.Path + "/Data/Backups")) Directory.CreateDirectory(Essentials.Path + "/Data/Backups");
+            if (!File.Exists(Essentials.Path + "/Data/Blogs.json")) File.Create(Essentials.Path + "/Data/Blogs.json").Dispose();
+            if (!File.Exists(Essentials.Path + "/Data/Categorys.json")) File.Create(Essentials.Path + "/Data/Categorys.json").Dispose();
+            if (!File.Exists(Essentials.Path + "/Data/ImagesManager.json")) File.Create(Essentials.Path + "/Data/ImagesManager.json").Dispose(); ;           
+        }
+        public static void BackUpData()
+        {
+            try
+            {
+                List<FileInfo> Files = new List<FileInfo>();
+                DirectoryInfo dInfo = new DirectoryInfo(Essentials.Path + "/Data/Images/");
+                foreach (FileInfo _image in dInfo.GetFiles("*.png"))
+                {
+                    Files.Add(_image);
+                }
+                string _Path = Essentials.Path + "/Data/Backups/" + DateTime.Now.ToString("dd-MM-yyyy_HH-mm-ss") + "_DataBackup.zip";
+                using (ZipArchive zipFile = System.IO.Compression.ZipFile.Open(_Path, ZipArchiveMode.Create))
+                {
+                    ZipArchiveEntry entry;
+                    zipFile.CreateEntryFromFile(Essentials.Path + "/Data/Blogs.json", System.IO.Path.GetFileName(Essentials.Path + "/Data/Blogs.json"));
+                    zipFile.CreateEntryFromFile(Essentials.Path + "/Data/Categorys.json", System.IO.Path.GetFileName(Essentials.Path + "/Data/Categorys.json"));
+                    zipFile.CreateEntryFromFile(Essentials.Path + "/Data/ImagesManager.json", System.IO.Path.GetFileName(Essentials.Path + "/Data/ImagesManager.json"));
+
+                    foreach (FileInfo file in Files)
+                    {
+                        entry = zipFile.CreateEntryFromFile(file.FullName, "Images/" + System.IO.Path.GetFileName(file.Name));
+                    }
+                }
+                MessageBox.Show("Successfully Created Backup!", "Info");
+            }
+            catch (Exception e)
+            {
+                ErrorMessage = "Could not Create Backup!\n" + e.Message;
+            }
+        }
+        public static void LoadConfig() => Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("C:/Blogz/Config.json"));
+        public static void UpdateConfig()
+        {
+            using (StreamWriter sw = File.CreateText("C:/Blogz/Config.json"))
+            {
+                string SerializedJson = JsonConvert.SerializeObject(Config, Formatting.Indented);
+                sw.WriteLine(SerializedJson);
+                sw.Close();
+            }
         }
         public static void LoadData(EventHandler ButtonClickHandler, EventHandler InitializeEvent)
         {
@@ -63,45 +115,50 @@ namespace Blogz
 
             JsonFile = File.ReadAllText(Path + "/Data/ImagesManager.json");
             ImageList = JsonConvert.DeserializeObject<List<Image>>(JsonFile);
-            
-            foreach(Image _image in ImageList)
+
+            if (ImageList != null)
             {
-                try
+                foreach (Image _image in ImageList)
                 {
-                    if (_image.ID.Length != 10)
+                    try
                     {
-                        ErrorMessage = "Could not Load Image with the ID " + _image.ID + ",\nPlease delete This Image ID in the File \"ImagesManager.json\"\nAnd Re -add the Correct Image.";
-                        continue;
-                    }
-                    else
-                    {
-                        try
-                        {
-                            int x = Convert.ToInt32(_image.ID.Split('e')[1]);
-                        }
-                        catch
+                        if (_image.ID.Length != 10)
                         {
                             ErrorMessage = "Could not Load Image with the ID " + _image.ID + ",\nPlease delete This Image ID in the File \"ImagesManager.json\"\nAnd Re -add the Correct Image.";
                             continue;
                         }
+                        else
+                        {
+                            try
+                            {
+                                int x = Convert.ToInt32(_image.ID.Split('e')[1]);
+                            }
+                            catch
+                            {
+                                ErrorMessage = "Could not Load Image with the ID " + _image.ID + ",\nPlease delete This Image ID in the File \"ImagesManager.json\"\nAnd Re -add the Correct Image.";
+                                continue;
+                            }
+                        }
                     }
+                    catch
+                    {
+                        ErrorMessage = "Could not Load Image with the ID " + _image.ID + ",\nPlease delete This Image ID in the File \"ImagesManager.json\"\nAnd Re -add the Correct Image.";
+                        continue;
+                    }
+                    Images.Add(_image.ID, new Image(_image.DisplayText, _image.Title, _image.Creator, _image.Creation, _image.Path, _image.ID));
                 }
-                catch
-                {
-                    ErrorMessage = "Could not Load Image with the ID " + _image.ID + ",\nPlease delete This Image ID in the File \"ImagesManager.json\"\nAnd Re -add the Correct Image.";
-                    continue;
-                }
-                Images.Add(_image.ID, new Image(_image.DisplayText, _image.Title, _image.Creator, _image.Creation, _image.Path, _image.ID));
             }
-
-            foreach (LoadingCategory cat in CategoryList)
+            if (CategoryList != null)
             {
-                Dictionary<string, BlogControl> _Blogs = new Dictionary<string, BlogControl>();
-                foreach (Blog _blog in BlogsList.Where(x => x.CategoryID == cat .ID))
+                foreach (LoadingCategory cat in CategoryList)
                 {
-                    _Blogs.Add(_blog.ID, new BlogControl(_blog, true, ButtonClickHandler, InitializeEvent));
+                    Dictionary<string, BlogControl> _Blogs = new Dictionary<string, BlogControl>();
+                    foreach (Blog _blog in BlogsList.Where(x => x.CategoryID == cat.ID))
+                    {
+                        _Blogs.Add(_blog.ID, new BlogControl(_blog, true, ButtonClickHandler, InitializeEvent));
+                    }
+                    Essentials.Categorys.Add(cat.ID, new CategoryControl(new Category(cat.Title, _Blogs, cat.ID)));
                 }
-                Essentials.Categorys.Add(cat.ID, new CategoryControl(new Category(cat.Title, _Blogs, cat.ID)));
             }
         }
         public static void UpdateData()
@@ -140,6 +197,7 @@ namespace Blogz
                 sw.WriteLine(SerializedJson);
                 sw.Close();
             }
+            
         }
 
         public static Point GetMousePoint()
@@ -160,6 +218,10 @@ namespace Blogz
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool GetWindowRect(IntPtr hWnd, out Rect lpRect);
 
+    }
+    public class Config
+    {
+        public static string Path { get; set; }
     }
     [StructLayout(LayoutKind.Sequential)]
     public struct Rect
@@ -250,7 +312,10 @@ namespace Blogz
     {
         Open,
         Edit,
-        Delete
+        Delete,
+        Backup,
+        RenameSelect,
+        Rename
     }
     
 }

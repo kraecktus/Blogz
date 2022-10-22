@@ -53,11 +53,11 @@ namespace Blogz
 
         private void UploadButton_Click(object sender, EventArgs e)
         {
-            if (Path == "") MessageBox.Show("Please Select a Image!", "Info");
-            else if (DisplayTtxtBox.Text == "") MessageBox.Show("Please Enter a Valid Display Text!", "Info");
-            else if (TitleTxtBox.Text == "") MessageBox.Show("Please Enter a Valid Title!", "Info");
-            else if (CreatorTxtBox.Text == "") MessageBox.Show("Please Enter a Valid Creator!", "Info");
-            else if (CreationTxtBox.Text == "") MessageBox.Show("Please Enter a Valid Creation Date!", "Info");
+            if (Path == "") Essentials.ErrorMessage = "Please Select a Image!";
+            else if (DisplayTtxtBox.Text == "") Essentials.ErrorMessage = "Please Enter a Valid Display Text!";
+            else if (TitleTxtBox.Text == "") Essentials.ErrorMessage = "Please Enter a Valid Title!";
+            else if (CreatorTxtBox.Text == "") Essentials.ErrorMessage = "Please Enter a Valid Creator!";
+            else if (CreationTxtBox.Text == "") Essentials.ErrorMessage = "Please Enter a Valid Creation Date!";
             else
             {
                 string NewID = IdGetter.GetHighestImageID();
@@ -70,7 +70,7 @@ namespace Blogz
                 }
                 catch (Exception x)
                 {
-                    MessageBox.Show("Something went Wrong when Trying to Upload the File!\n" + x, "Error");
+                    Essentials.ErrorMessage = "Something went Wrong when Trying to Upload the File!\n" + x.Message;
                 }
                 Close();
             }

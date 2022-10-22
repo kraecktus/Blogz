@@ -92,13 +92,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.BackColor = System.Drawing.Color.RoyalBlue;
             this.Controls.Add(this.OpenButton);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.EditButton);
             this.Controls.Add(this.TitleLBL);
             this.Name = "BlogControl";
-            this.Size = new System.Drawing.Size(597, 40);
+            this.Size = new System.Drawing.Size(610, 40);
             this.ResumeLayout(false);
             this.PerformLayout();
 
