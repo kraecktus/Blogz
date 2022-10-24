@@ -36,7 +36,7 @@ namespace Blogz
                 Text = "Delete Category";
                 LoadAllCategorys();
             }
-            else if(LocalClickState == ClickState.Edit)
+            else if (LocalClickState == ClickState.Edit)
             {
                 CategoryComboBox.Visible = false;
                 TitleTextbox.Visible = true;
@@ -44,7 +44,7 @@ namespace Blogz
                 ActionButton.Text = "Create";
                 Text = "Create Category";
             }
-            else if(LocalClickState == ClickState.Open)
+            else if (LocalClickState == ClickState.Open)
             {
                 CategoryComboBox.Visible = true;
                 TitleTextbox.Visible = false;
@@ -53,7 +53,7 @@ namespace Blogz
                 Text = "Select Category";
                 LoadAllCategorys();
             }
-            else if(LocalClickState == ClickState.Backup)
+            else if (LocalClickState == ClickState.Backup)
             {
                 CategoryComboBox.Visible = true;
                 TitleTextbox.Visible = false;
@@ -62,7 +62,7 @@ namespace Blogz
                 Text = "Select Backup";
                 LoadBackups();
             }
-            else if(LocalClickState == ClickState.RenameSelect)
+            else if (LocalClickState == ClickState.RenameSelect)
             {
                 CategoryComboBox.Visible = true;
                 TitleTextbox.Visible = false;
@@ -71,7 +71,7 @@ namespace Blogz
                 Text = "Select Category";
                 LoadAllCategorys();
             }
-            else if(LocalClickState == ClickState.Rename)
+            else if (LocalClickState == ClickState.Rename)
             {
                 CategoryComboBox.Visible = false;
                 TitleTextbox.Visible = true;
@@ -100,10 +100,10 @@ namespace Blogz
         }
         private void ActionButton_Click(object sender, EventArgs e)
         {
-            if(LocalClickState == ClickState.Delete)
+            if (LocalClickState == ClickState.Delete)
             {
                 DialogResult result = MessageBox.Show("Are you sure you want to Delete this Category?", "Info", MessageBoxButtons.YesNo);
-                if(result == DialogResult.Yes)
+                if (result == DialogResult.Yes)
                 {
                     CustomControl Category = (CustomControl)CategoryComboBox.Items[CategoryComboBox.SelectedIndex];
                     if (Essentials.Categorys[Category.LocalCategory.ID].LocalCategory.Blogs.Count() == 0)
@@ -118,7 +118,7 @@ namespace Blogz
                     }
                 }
             }
-            else if(LocalClickState == ClickState.Edit)
+            else if (LocalClickState == ClickState.Edit)
             {
                 if (TitleTextbox.Text != "")
                 {
@@ -129,32 +129,32 @@ namespace Blogz
                 }
                 else Essentials.ErrorMessage = "Please Enter a Valid Title!";
             }
-            else if(LocalClickState == ClickState.Open)
+            else if (LocalClickState == ClickState.Open)
             {
                 CustomControl Category = (CustomControl)CategoryComboBox.Items[CategoryComboBox.SelectedIndex];
                 string CatID = Category.LocalCategory.ID;
-                BlogControl _Blog = new BlogControl(new Blog("", "", "", "", new string[] {  }, ID, new List<string>(), CatID), false, FormsButtonClickHandler, FormsEventHandler);
+                BlogControl _Blog = new BlogControl(new Blog("", "", "", "", new string[] { }, ID, new List<string>(), new List<string>(), CatID), false, FormsButtonClickHandler, FormsEventHandler);
                 LocalBlog = _Blog;
                 Essentials.Categorys[CatID].LocalCategory.Blogs.Add(ID, _Blog);
 
                 IsSuccess = true;
             }
-            else if(LocalClickState == ClickState.Backup)
+            else if (LocalClickState == ClickState.Backup)
             {
                 SelectedBackup = CategoryComboBox.Text;
             }
-            else if(LocalClickState == ClickState.RenameSelect)
+            else if (LocalClickState == ClickState.RenameSelect)
             {
                 CustomControl Category = (CustomControl)CategoryComboBox.Items[CategoryComboBox.SelectedIndex];
                 ID = Category.LocalCategory.ID;
                 IsSuccess = true;
             }
-            else if(LocalClickState == ClickState.Rename)
+            else if (LocalClickState == ClickState.Rename)
             {
                 if (TitleTextbox.Text != "")
                 {
                     DialogResult dialog = MessageBox.Show("Do you really want to Rename the Category:\n" + Essentials.Categorys[ID].LocalCategory.Title + "\nTo:\n" + TitleTextbox.Text + " ?", "Info", MessageBoxButtons.YesNo);
-                    if(dialog == DialogResult.Yes)
+                    if (dialog == DialogResult.Yes)
                     {
                         Essentials.Categorys[ID].LocalCategory.Title = TitleTextbox.Text;
                         Essentials.UpdateData();
@@ -165,7 +165,7 @@ namespace Blogz
             }
             this.Close();
         }
-        
+
         public class CustomControl : Control
         {
             public Category LocalCategory { get; set; }

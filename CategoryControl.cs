@@ -1,24 +1,22 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Blogz
 {
-    
+
     public partial class CategoryControl : UserControl
     {
-        public Category LocalCategory { get; set; } 
-        public Boolean IsOpened {
+        public Category LocalCategory { get; set; }
+        public Boolean IsOpened
+        {
             get { return _IsOpened; }
-            set 
+            set
             {
                 _IsOpened = value;
-                if(_IsOpened)
+                if (_IsOpened)
                 {
                     //OpenCloseButton.Text = "Close";
                     OpenCloseButton.BackgroundImage = Properties.Resources.IconOpened;
@@ -26,7 +24,7 @@ namespace Blogz
                     this.BlogsPanel.Size = new System.Drawing.Size(635, CalcBlogPanelHeight);
                     BlogsPanel.Visible = true;
                 }
-                else if(!_IsOpened)
+                else if (!_IsOpened)
                 {
                     //OpenCloseButton.Text = "Open";
                     OpenCloseButton.BackgroundImage = Properties.Resources.IconClosed;
@@ -80,7 +78,7 @@ namespace Blogz
         }
         private void OpenCloseButton_Click(object sender, System.EventArgs e)
         {
-            if(IsOpened)
+            if (IsOpened)
             {
                 IsOpened = false;
             }

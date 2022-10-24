@@ -8,7 +8,7 @@ namespace Blogz
 {
     public partial class BlogControl : UserControl
     {
-        
+
         public Blog LocalBlog { get; set; }
         public Boolean ShowButtons { get; set; } = false;
         public ClickState LocalClickState { get; set; }
@@ -36,7 +36,7 @@ namespace Blogz
         }
 
 
-        
+
         public void ClickHandler(object sender, EventArgs e)
         {
             CustomButton Buttonsender = (CustomButton)sender;
@@ -46,7 +46,7 @@ namespace Blogz
         public void Initialize()
         {
             TitleLBL.Text = LocalBlog.Title + " - " + LocalBlog.Description;
-            if(ShowButtons)
+            if (ShowButtons)
             {
                 OpenButton.Visible = true;
                 EditButton.Visible = true;
@@ -63,7 +63,7 @@ namespace Blogz
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Are you sure you want to Delete this Blog?", "Warning", MessageBoxButtons.YesNo);
-            if(result == DialogResult.Yes)
+            if (result == DialogResult.Yes)
             {
                 Essentials.Categorys[LocalBlog.CategoryID].LocalCategory.Blogs.Remove(LocalBlog.ID);
                 Essentials.UpdateData();

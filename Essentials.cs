@@ -14,6 +14,7 @@ namespace Blogz
     {
         public static Dictionary<string, CategoryControl> Categorys = new Dictionary<string, CategoryControl>();
         public static Dictionary<string, Image> Images = new Dictionary<string, Image>();
+        public static Dictionary<string, Image> Files = new Dictionary<string, Image>();
         public static Dictionary<string, Image> ImagesSelected = new Dictionary<string, Image>();
         public static Config Config = new Config();
         public static EventHandler PlaceHolderEvent;
@@ -29,10 +30,65 @@ namespace Blogz
                 MessageBox.Show(value, "Error");
             }
         }
-        
+        public static void RemoveImageFromBlog(Image _image, EventHandler FormsInit)
+        {
+            foreach (CategoryControl _category in Essentials.Categorys.Values)
+            {
+                foreach (BlogControl _Blog in _category.LocalCategory.Blogs.Values)
+                {
+                    if (_Blog.LocalBlog.ImageIDs.Contains(_image.ID))
+                    {
+                        _Blog.LocalBlog.ImageIDs.Remove(_image.ID);
+                    }
+                }
+            }
+            Essentials.UpdateData();
+            FormsInit.Invoke(new object(), new EventArgs());
+        }
+        public static void RemoveFileFromBlog(Image _image, EventHandler FormsInit)
+        {
+            foreach (CategoryControl _category in Essentials.Categorys.Values)
+            {
+                foreach (BlogControl _Blog in _category.LocalCategory.Blogs.Values)
+                {
+                    if (_Blog.LocalBlog.FileIDs.Contains(_image.ID))
+                    {
+                        _Blog.LocalBlog.FileIDs.Remove(_image.ID);
+                    }
+                }
+            }
+            Essentials.UpdateData();
+            FormsInit.Invoke(new object(), new EventArgs());
+        }
+        public static System.Drawing.Image DrawImage(Image LocalImage)
+        {
+            Point DisplayTextLocation = new Point(400, 150);
+            Point TitleLocation = new Point(390, 250);
+            Point CreatorLocation = new Point(390, 330);
+            Point CreationLocation = new Point(390, 415);
+
+            string Template = "/Data/FileTemplate.png";
+
+            Bitmap bitmap = (Bitmap)System.Drawing.Image.FromFile(Essentials.Path + Template);
+            Bitmap tempBitmap = new Bitmap(bitmap.Width, bitmap.Height);
+
+            using (Graphics graphics = Graphics.FromImage(tempBitmap))
+            {
+                using (Font CalibriFont = new Font("Calibri", 60))
+                {
+                    graphics.DrawImage(bitmap, 0, 0);
+                    graphics.DrawString(LocalImage.DisplayText, CalibriFont, Brushes.White, DisplayTextLocation);
+                    graphics.DrawString(LocalImage.Title, CalibriFont, Brushes.White, TitleLocation);
+                    graphics.DrawString(LocalImage.Creator, CalibriFont, Brushes.White, CreatorLocation);
+                    graphics.DrawString(LocalImage.Creation, CalibriFont, Brushes.White, CreationLocation);
+                }
+            }
+            bitmap.Dispose();
+            return (System.Drawing.Image)tempBitmap;
+        }
         public static System.Drawing.Image ReadImage(string Path)
         {
-            using (var ms = new MemoryStream(File.ReadAllBytes(Essentials.Path + "/" + Path)))
+            using (MemoryStream ms = new MemoryStream(File.ReadAllBytes(Essentials.Path + "/" + Path)))
             {
                 System.Drawing.Image _image = System.Drawing.Image.FromStream(ms);
                 ms.Flush();
@@ -43,7 +99,7 @@ namespace Blogz
         public static string Path = "C:/Blogz";
         public static Blog ErrorBlog(string ErrorMessage)
         {
-            Blog _Blog = new Blog("Info", "Dev", ErrorMessage, "00.00.0000", new string[] { "" }, "Blog00000", new List<string>(), "Category00000");
+            Blog _Blog = new Blog("Info", "Dev", ErrorMessage, "00.00.0000", new string[] { "" }, "Blog00000", new List<string>(), new List<string>(), "Category00000");
 
             return _Blog;
         }
@@ -51,12 +107,15 @@ namespace Blogz
         {
             if (!Directory.Exists(Essentials.Path + "/Data")) Directory.CreateDirectory(Essentials.Path + "/Data");
             if (!Directory.Exists("C:/Blogz")) Directory.CreateDirectory("C:/Blogz");
-            if (!Directory.Exists(Essentials.Path + "/Data/DeletedImages"))  Directory.CreateDirectory(Essentials.Path + "/Data/DeletedImages");
+            if (!Directory.Exists(Essentials.Path + "/Data/DeletedImages")) Directory.CreateDirectory(Essentials.Path + "/Data/DeletedImages");
             if (!Directory.Exists(Essentials.Path + "/Data/Images")) Directory.CreateDirectory(Essentials.Path + "/Data/Images");
             if (!Directory.Exists(Essentials.Path + "/Data/Backups")) Directory.CreateDirectory(Essentials.Path + "/Data/Backups");
+            if (!Directory.Exists(Essentials.Path + "/Data/Files")) Directory.CreateDirectory(Essentials.Path + "/Data/Files");
+            if (!Directory.Exists(Essentials.Path + "/Data/DeletedFiles")) Directory.CreateDirectory(Essentials.Path + "/Data/DeletedFiles");
             if (!File.Exists(Essentials.Path + "/Data/Blogs.json")) File.Create(Essentials.Path + "/Data/Blogs.json").Dispose();
             if (!File.Exists(Essentials.Path + "/Data/Categorys.json")) File.Create(Essentials.Path + "/Data/Categorys.json").Dispose();
-            if (!File.Exists(Essentials.Path + "/Data/ImagesManager.json")) File.Create(Essentials.Path + "/Data/ImagesManager.json").Dispose(); ;           
+            if (!File.Exists(Essentials.Path + "/Data/ImagesManager.json")) File.Create(Essentials.Path + "/Data/ImagesManager.json").Dispose(); ;
+            if (!File.Exists(Essentials.Path + "/Data/FilesManager.json")) File.Create(Essentials.Path + "/Data/FilesManager.json").Dispose(); ;
         }
         public static void BackUpData()
         {
@@ -75,6 +134,7 @@ namespace Blogz
                     zipFile.CreateEntryFromFile(Essentials.Path + "/Data/Blogs.json", System.IO.Path.GetFileName(Essentials.Path + "/Data/Blogs.json"));
                     zipFile.CreateEntryFromFile(Essentials.Path + "/Data/Categorys.json", System.IO.Path.GetFileName(Essentials.Path + "/Data/Categorys.json"));
                     zipFile.CreateEntryFromFile(Essentials.Path + "/Data/ImagesManager.json", System.IO.Path.GetFileName(Essentials.Path + "/Data/ImagesManager.json"));
+                    zipFile.CreateEntryFromFile(Essentials.Path + "/Data/FilesManager.json", System.IO.Path.GetFileName(Essentials.Path + "/Data/FilesManager.json"));
 
                     foreach (FileInfo file in Files)
                     {
@@ -88,10 +148,16 @@ namespace Blogz
                 ErrorMessage = "Could not Create Backup!\n" + e.Message;
             }
         }
-        public static void LoadConfig() => Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("C:/Blogz/Config.json"));
+        public static void CheckConfig()
+        {
+            if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "/Data/")) Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "/Data/");
+            if (!File.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "/Data/Config.json")) File.Create(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "/Data/Config.json");
+            UpdateConfig();
+        }
+        public static void LoadConfig() => Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "/Data/Config.json"));
         public static void UpdateConfig()
         {
-            using (StreamWriter sw = File.CreateText("C:/Blogz/Config.json"))
+            using (StreamWriter sw = File.CreateText(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "/Data/Config.json"))
             {
                 string SerializedJson = JsonConvert.SerializeObject(Config, Formatting.Indented);
                 sw.WriteLine(SerializedJson);
@@ -103,9 +169,11 @@ namespace Blogz
             Essentials.Categorys.Clear();
             Essentials.Images.Clear();
             Essentials.ImagesSelected.Clear();
+            Essentials.Files.Clear();
             List<Blog> BlogsList = new List<Blog>();
             List<LoadingCategory> CategoryList = new List<LoadingCategory>();
             List<Image> ImageList = new List<Image>();
+            List<Image> FileList = new List<Image>();
 
             string JsonFile = File.ReadAllText(Path + "/Data/Blogs.json");
             BlogsList = JsonConvert.DeserializeObject<List<Blog>>(JsonFile);
@@ -115,6 +183,9 @@ namespace Blogz
 
             JsonFile = File.ReadAllText(Path + "/Data/ImagesManager.json");
             ImageList = JsonConvert.DeserializeObject<List<Image>>(JsonFile);
+
+            JsonFile = File.ReadAllText(Path + "/Data/FilesManager.json");
+            FileList = JsonConvert.DeserializeObject<List<Image>>(JsonFile);
 
             if (ImageList != null)
             {
@@ -148,6 +219,38 @@ namespace Blogz
                     Images.Add(_image.ID, new Image(_image.DisplayText, _image.Title, _image.Creator, _image.Creation, _image.Path, _image.ID));
                 }
             }
+            if (FileList != null)
+            {
+                foreach (Image _image in FileList)
+                {
+                    try
+                    {
+                        if (_image.ID.Length != 9)
+                        {
+                            ErrorMessage = "Could not Load File with the ID " + _image.ID + ",\nPlease delete This File ID in the File \"FilesManager.json\"\nAnd Re -add the Correct File. Error 1";
+                            continue;
+                        }
+                        else
+                        {
+                            try
+                            {
+                                int x = Convert.ToInt32(_image.ID.Split('e')[1]);
+                            }
+                            catch
+                            {
+                                ErrorMessage = "Could not Load File with the ID " + _image.ID + ",\nPlease delete This File ID in the File \"FilesManager.json\"\nAnd Re -add the Correct File. Error 2";
+                                continue;
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        ErrorMessage = "Could not Load File with the ID " + _image.ID + ",\nPlease delete This File ID in the File \"FilesManager.json\"\nAnd Re -add the Correct File. Error 3";
+                        continue;
+                    }
+                    Files.Add(_image.ID, new Image(_image.DisplayText, _image.Title, _image.Creator, _image.Creation, _image.Path, _image.ID));
+                }
+            }
             if (CategoryList != null)
             {
                 foreach (LoadingCategory cat in CategoryList)
@@ -166,26 +269,31 @@ namespace Blogz
             List<LoadingCategory> LoadCategorys = new List<LoadingCategory>();
             List<Blog> LoadBlogs = new List<Blog>();
             List<Image> LoadImages = new List<Image>();
+            List<Image> LoadFiles = new List<Image>();
 
             foreach (CategoryControl _Category in Essentials.Categorys.Values)
             {
                 LoadCategorys.Add(new LoadingCategory(_Category.LocalCategory.Title, _Category.LocalCategory.ID));
-                foreach(BlogControl _Blog in _Category.LocalCategory.Blogs.Values)
+                foreach (BlogControl _Blog in _Category.LocalCategory.Blogs.Values)
                 {
                     LoadBlogs.Add(_Blog.LocalBlog);
                 }
             }
-            foreach(Image _image in Essentials.Images.Values)
+            foreach (Image _image in Essentials.Images.Values)
             {
                 LoadImages.Add(new Image(_image.DisplayText, _image.Title, _image.Creator, _image.Creation, _image.Path, _image.ID));
             }
-            using(StreamWriter sw = File.CreateText(Path + "/Data/Categorys.json"))
+            foreach (Image _image in Essentials.Files.Values)
+            {
+                LoadFiles.Add(new Image(_image.DisplayText, _image.Title, _image.Creator, _image.Creation, _image.Path, _image.ID));
+            }
+            using (StreamWriter sw = File.CreateText(Path + "/Data/Categorys.json"))
             {
                 string SerializedJson = JsonConvert.SerializeObject(LoadCategorys, Formatting.Indented);
                 sw.WriteLine(SerializedJson);
                 sw.Close();
             }
-            using(StreamWriter sw = File.CreateText(Path + "/Data/Blogs.json"))
+            using (StreamWriter sw = File.CreateText(Path + "/Data/Blogs.json"))
             {
                 string SerializedJson = JsonConvert.SerializeObject(LoadBlogs, Formatting.Indented);
                 sw.WriteLine(SerializedJson);
@@ -197,7 +305,12 @@ namespace Blogz
                 sw.WriteLine(SerializedJson);
                 sw.Close();
             }
-            
+            using (StreamWriter sw = File.CreateText(Path + "/Data/FilesManager.json"))
+            {
+                string SerializedJson = JsonConvert.SerializeObject(LoadFiles, Formatting.Indented);
+                sw.WriteLine(SerializedJson);
+                sw.Close();
+            }
         }
 
         public static Point GetMousePoint()
@@ -242,9 +355,8 @@ namespace Blogz
     }
     public class CustomLinkLabel : LinkLabel
     {
-        public string Title { get; set; }
-        public string Creator { get; set; }
-        public string cDate { get; set; }
+        public new Image Image { get; set; }
+        public ClickState ClickState { get; set; }
     }
     public class Blog
     {
@@ -254,9 +366,10 @@ namespace Blogz
         public string CreationDate { get; set; }
         public string[] Content { get; set; }
         public List<string> ImageIDs { get; set; }
+        public List<string> FileIDs { get; set; }
         public string ID { get; set; }
         public string CategoryID { get; set; }
-        public Blog(string _Title, string _Creator, string _Description, string _CreationDate, string[] _Content, string _ID, List<string> _ImageIDs, string _CategoryID)
+        public Blog(string _Title, string _Creator, string _Description, string _CreationDate, string[] _Content, string _ID, List<string> _ImageIDs, List<string> _FileIDs, string _CategoryID)
         {
             Title = _Title;
             Creator = _Creator;
@@ -265,6 +378,7 @@ namespace Blogz
             Content = _Content;
             ID = _ID;
             ImageIDs = _ImageIDs;
+            FileIDs = _FileIDs;
             CategoryID = _CategoryID;
         }
     }
@@ -317,5 +431,5 @@ namespace Blogz
         RenameSelect,
         Rename
     }
-    
+
 }
