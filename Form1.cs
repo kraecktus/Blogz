@@ -369,6 +369,7 @@ namespace Blogz
             if (Dialog.SelectedPath != "")
             {
                 Essentials.Path = Dialog.SelectedPath;
+                Essentials.Config.Path = Essentials.Path;
                 Essentials.UpdateConfig();
                 Initialize();
             }

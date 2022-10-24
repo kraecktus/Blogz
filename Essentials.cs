@@ -334,7 +334,7 @@ namespace Blogz
     }
     public class Config
     {
-        public static string Path { get; set; }
+        public string Path { get; set; } = "C:/Blogz/Config.json";
     }
     [StructLayout(LayoutKind.Sequential)]
     public struct Rect
