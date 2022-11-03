@@ -358,15 +358,13 @@
             // 
             // BlogContentTxtBox
             // 
-            this.BlogContentTxtBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.BlogContentTxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BlogContentTxtBox.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BlogContentTxtBox.Location = new System.Drawing.Point(3, 86);
+            this.BlogContentTxtBox.Location = new System.Drawing.Point(3, 83);
             this.BlogContentTxtBox.Name = "BlogContentTxtBox";
             this.BlogContentTxtBox.Size = new System.Drawing.Size(615, 364);
-            this.BlogContentTxtBox.TabIndex = 9;
-            this.BlogContentTxtBox.TabStop = false;
+            this.BlogContentTxtBox.TabIndex = 18;
             this.BlogContentTxtBox.Text = "";
+            this.BlogContentTxtBox.WordWrap = false;
             // 
             // DescriptionTxtBox
             // 
@@ -674,7 +672,6 @@
         private System.Windows.Forms.Label MinusLabel;
         private System.Windows.Forms.Label AuthorLBL;
         private System.Windows.Forms.Label CreationLBL;
-        private System.Windows.Forms.RichTextBox BlogContentTxtBox;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel PicturePanel;
         private System.Windows.Forms.Label PictureTitleLabel;
@@ -707,6 +704,7 @@
         private System.Windows.Forms.Label FilesPanelLabel;
         private CustomButton RemoveFileButton;
         private CustomButton AddFileButton;
+        private System.Windows.Forms.RichTextBox BlogContentTxtBox;
     }
 }
 
