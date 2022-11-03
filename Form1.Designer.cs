@@ -359,8 +359,8 @@
             // BlogContentTxtBox
             // 
             this.BlogContentTxtBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.BlogContentTxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BlogContentTxtBox.ForeColor = System.Drawing.SystemColors.Window;
+            this.BlogContentTxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BlogContentTxtBox.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BlogContentTxtBox.Location = new System.Drawing.Point(3, 86);
             this.BlogContentTxtBox.Name = "BlogContentTxtBox";
             this.BlogContentTxtBox.Size = new System.Drawing.Size(615, 364);
@@ -370,10 +370,10 @@
             // 
             // DescriptionTxtBox
             // 
-            this.DescriptionTxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DescriptionTxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DescriptionTxtBox.Location = new System.Drawing.Point(3, 60);
             this.DescriptionTxtBox.Name = "DescriptionTxtBox";
-            this.DescriptionTxtBox.Size = new System.Drawing.Size(615, 20);
+            this.DescriptionTxtBox.Size = new System.Drawing.Size(615, 21);
             this.DescriptionTxtBox.TabIndex = 17;
             this.DescriptionTxtBox.TabStop = false;
             // 
