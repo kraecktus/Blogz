@@ -129,7 +129,9 @@
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(446, 184);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(446, 184);
             this.Name = "RemoveImageForm";
             this.Text = "Image Manager";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

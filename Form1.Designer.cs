@@ -642,6 +642,8 @@
             this.ClientSize = new System.Drawing.Size(787, 460);
             this.Controls.Add(this.TabControl);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(803, 499);
+            this.MinimumSize = new System.Drawing.Size(803, 499);
             this.Name = "Form1";
             this.ShowIcon = false;
             this.Text = "Form1";
