@@ -31,19 +31,14 @@
             this.CategoryFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.TabControl = new System.Windows.Forms.TabControl();
             this.MainView = new System.Windows.Forms.TabPage();
-            this.ManageFilesButton = new Blogz.CustomButton();
-            this.ManageImgButton = new Blogz.CustomButton();
             this.RenameCatButton = new System.Windows.Forms.Button();
             this.LoadBackupButton = new System.Windows.Forms.Button();
             this.BackupButton = new System.Windows.Forms.Button();
             this.PathChooseButton = new System.Windows.Forms.Button();
-            this.CreateBlogButton = new Blogz.CustomButton();
             this.CategoryDeleteButton = new System.Windows.Forms.Button();
             this.CategoryCreateButton = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
             this.BlogView = new System.Windows.Forms.TabPage();
-            this.RemoveFileButton = new Blogz.CustomButton();
-            this.AddFileButton = new Blogz.CustomButton();
             this.FilesPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.FilesPanelLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -62,14 +57,19 @@
             this.PictureCdateLabel = new System.Windows.Forms.Label();
             this.PictureTitleLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.ImagesView = new System.Windows.Forms.TabPage();
+            this.ImgViewSelectedCount = new System.Windows.Forms.Label();
+            this.ImgViewFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.ManageFilesButton = new Blogz.CustomButton();
+            this.ManageImgButton = new Blogz.CustomButton();
+            this.CreateBlogButton = new Blogz.CustomButton();
+            this.RemoveFileButton = new Blogz.CustomButton();
+            this.AddFileButton = new Blogz.CustomButton();
             this.RemovePictureButton = new Blogz.CustomButton();
             this.AddPictureButton = new Blogz.CustomButton();
             this.BackButton = new Blogz.CustomButton();
-            this.ImagesView = new System.Windows.Forms.TabPage();
             this.ImgDeleteButton = new Blogz.CustomButton();
             this.UploadImgButton = new Blogz.CustomButton();
-            this.ImgViewSelectedCount = new System.Windows.Forms.Label();
-            this.ImgViewFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.ImgViewBackButton = new Blogz.CustomButton();
             this.TabControl.SuspendLayout();
             this.MainView.SuspendLayout();
@@ -128,38 +128,6 @@
             this.MainView.TabIndex = 0;
             this.MainView.Text = "tabPage1";
             // 
-            // ManageFilesButton
-            // 
-            this.ManageFilesButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(190)))), ((int)(((byte)(237)))));
-            this.ManageFilesButton.BlogID = null;
-            this.ManageFilesButton.CategoryID = null;
-            this.ManageFilesButton.ClickState = Blogz.ClickState.Edit;
-            this.ManageFilesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ManageFilesButton.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.ManageFilesButton.Location = new System.Drawing.Point(661, 94);
-            this.ManageFilesButton.Name = "ManageFilesButton";
-            this.ManageFilesButton.Size = new System.Drawing.Size(103, 23);
-            this.ManageFilesButton.TabIndex = 13;
-            this.ManageFilesButton.Text = "Manage Files";
-            this.ManageFilesButton.UseVisualStyleBackColor = false;
-            this.ManageFilesButton.Click += new System.EventHandler(this.ImgManagerButton_Click);
-            // 
-            // ManageImgButton
-            // 
-            this.ManageImgButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(190)))), ((int)(((byte)(237)))));
-            this.ManageImgButton.BlogID = null;
-            this.ManageImgButton.CategoryID = null;
-            this.ManageImgButton.ClickState = Blogz.ClickState.Open;
-            this.ManageImgButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ManageImgButton.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.ManageImgButton.Location = new System.Drawing.Point(661, 65);
-            this.ManageImgButton.Name = "ManageImgButton";
-            this.ManageImgButton.Size = new System.Drawing.Size(103, 23);
-            this.ManageImgButton.TabIndex = 12;
-            this.ManageImgButton.Text = "Manage Images";
-            this.ManageImgButton.UseVisualStyleBackColor = false;
-            this.ManageImgButton.Click += new System.EventHandler(this.ImgManagerButton_Click);
-            // 
             // RenameCatButton
             // 
             this.RenameCatButton.BackColor = System.Drawing.SystemColors.ControlDark;
@@ -207,22 +175,6 @@
             this.PathChooseButton.Text = "Choose Path";
             this.PathChooseButton.UseVisualStyleBackColor = false;
             this.PathChooseButton.Click += new System.EventHandler(this.PathChooseButton_Click);
-            // 
-            // CreateBlogButton
-            // 
-            this.CreateBlogButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(190)))), ((int)(((byte)(237)))));
-            this.CreateBlogButton.BlogID = "";
-            this.CreateBlogButton.CategoryID = "";
-            this.CreateBlogButton.ClickState = Blogz.ClickState.Open;
-            this.CreateBlogButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CreateBlogButton.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.CreateBlogButton.Location = new System.Drawing.Point(661, 7);
-            this.CreateBlogButton.Name = "CreateBlogButton";
-            this.CreateBlogButton.Size = new System.Drawing.Size(103, 23);
-            this.CreateBlogButton.TabIndex = 6;
-            this.CreateBlogButton.Text = "Create Blog";
-            this.CreateBlogButton.UseVisualStyleBackColor = false;
-            this.CreateBlogButton.Click += new System.EventHandler(this.CreateBlogButton_Click);
             // 
             // CategoryDeleteButton
             // 
@@ -283,40 +235,6 @@
             this.BlogView.Size = new System.Drawing.Size(780, 451);
             this.BlogView.TabIndex = 1;
             this.BlogView.Text = "tabPage2";
-            // 
-            // RemoveFileButton
-            // 
-            this.RemoveFileButton.BackColor = System.Drawing.Color.MidnightBlue;
-            this.RemoveFileButton.BlogID = "";
-            this.RemoveFileButton.CategoryID = "";
-            this.RemoveFileButton.ClickState = Blogz.ClickState.Rename;
-            this.RemoveFileButton.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
-            this.RemoveFileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RemoveFileButton.ForeColor = System.Drawing.SystemColors.Window;
-            this.RemoveFileButton.Location = new System.Drawing.Point(713, 372);
-            this.RemoveFileButton.Name = "RemoveFileButton";
-            this.RemoveFileButton.Size = new System.Drawing.Size(61, 23);
-            this.RemoveFileButton.TabIndex = 24;
-            this.RemoveFileButton.Text = "Remove";
-            this.RemoveFileButton.UseVisualStyleBackColor = false;
-            this.RemoveFileButton.Click += new System.EventHandler(this.BlogViewPictureManager_Click);
-            // 
-            // AddFileButton
-            // 
-            this.AddFileButton.BackColor = System.Drawing.Color.MidnightBlue;
-            this.AddFileButton.BlogID = "";
-            this.AddFileButton.CategoryID = "";
-            this.AddFileButton.ClickState = Blogz.ClickState.Edit;
-            this.AddFileButton.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
-            this.AddFileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddFileButton.ForeColor = System.Drawing.SystemColors.Window;
-            this.AddFileButton.Location = new System.Drawing.Point(651, 372);
-            this.AddFileButton.Name = "AddFileButton";
-            this.AddFileButton.Size = new System.Drawing.Size(61, 23);
-            this.AddFileButton.TabIndex = 23;
-            this.AddFileButton.Text = "Add";
-            this.AddFileButton.UseVisualStyleBackColor = false;
-            this.AddFileButton.Click += new System.EventHandler(this.BlogViewPictureManager_Click);
             // 
             // FilesPanel
             // 
@@ -502,6 +420,121 @@
             this.pictureBox1.TabIndex = 10;
             this.pictureBox1.TabStop = false;
             // 
+            // ImagesView
+            // 
+            this.ImagesView.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.ImagesView.Controls.Add(this.ImgDeleteButton);
+            this.ImagesView.Controls.Add(this.UploadImgButton);
+            this.ImagesView.Controls.Add(this.ImgViewSelectedCount);
+            this.ImagesView.Controls.Add(this.ImgViewFlowPanel);
+            this.ImagesView.Controls.Add(this.ImgViewBackButton);
+            this.ImagesView.Location = new System.Drawing.Point(4, 5);
+            this.ImagesView.Name = "ImagesView";
+            this.ImagesView.Size = new System.Drawing.Size(780, 451);
+            this.ImagesView.TabIndex = 2;
+            this.ImagesView.Text = "tabPage1";
+            // 
+            // ImgViewSelectedCount
+            // 
+            this.ImgViewSelectedCount.AutoSize = true;
+            this.ImgViewSelectedCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ImgViewSelectedCount.Location = new System.Drawing.Point(656, 368);
+            this.ImgViewSelectedCount.Name = "ImgViewSelectedCount";
+            this.ImgViewSelectedCount.Size = new System.Drawing.Size(109, 15);
+            this.ImgViewSelectedCount.TabIndex = 19;
+            this.ImgViewSelectedCount.Text = "0 Images Selected";
+            // 
+            // ImgViewFlowPanel
+            // 
+            this.ImgViewFlowPanel.AutoScroll = true;
+            this.ImgViewFlowPanel.BackColor = System.Drawing.Color.RoyalBlue;
+            this.ImgViewFlowPanel.Location = new System.Drawing.Point(0, 0);
+            this.ImgViewFlowPanel.Name = "ImgViewFlowPanel";
+            this.ImgViewFlowPanel.Size = new System.Drawing.Size(645, 450);
+            this.ImgViewFlowPanel.TabIndex = 18;
+            // 
+            // ManageFilesButton
+            // 
+            this.ManageFilesButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(190)))), ((int)(((byte)(237)))));
+            this.ManageFilesButton.BlogID = null;
+            this.ManageFilesButton.CategoryID = null;
+            this.ManageFilesButton.ClickState = Blogz.ClickState.Edit;
+            this.ManageFilesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ManageFilesButton.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.ManageFilesButton.Location = new System.Drawing.Point(661, 94);
+            this.ManageFilesButton.Name = "ManageFilesButton";
+            this.ManageFilesButton.Size = new System.Drawing.Size(103, 23);
+            this.ManageFilesButton.TabIndex = 13;
+            this.ManageFilesButton.Text = "Manage Files";
+            this.ManageFilesButton.UseVisualStyleBackColor = false;
+            this.ManageFilesButton.Click += new System.EventHandler(this.ImgManagerButton_Click);
+            // 
+            // ManageImgButton
+            // 
+            this.ManageImgButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(190)))), ((int)(((byte)(237)))));
+            this.ManageImgButton.BlogID = null;
+            this.ManageImgButton.CategoryID = null;
+            this.ManageImgButton.ClickState = Blogz.ClickState.Open;
+            this.ManageImgButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ManageImgButton.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.ManageImgButton.Location = new System.Drawing.Point(661, 65);
+            this.ManageImgButton.Name = "ManageImgButton";
+            this.ManageImgButton.Size = new System.Drawing.Size(103, 23);
+            this.ManageImgButton.TabIndex = 12;
+            this.ManageImgButton.Text = "Manage Images";
+            this.ManageImgButton.UseVisualStyleBackColor = false;
+            this.ManageImgButton.Click += new System.EventHandler(this.ImgManagerButton_Click);
+            // 
+            // CreateBlogButton
+            // 
+            this.CreateBlogButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(190)))), ((int)(((byte)(237)))));
+            this.CreateBlogButton.BlogID = "";
+            this.CreateBlogButton.CategoryID = "";
+            this.CreateBlogButton.ClickState = Blogz.ClickState.Open;
+            this.CreateBlogButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CreateBlogButton.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.CreateBlogButton.Location = new System.Drawing.Point(661, 7);
+            this.CreateBlogButton.Name = "CreateBlogButton";
+            this.CreateBlogButton.Size = new System.Drawing.Size(103, 23);
+            this.CreateBlogButton.TabIndex = 6;
+            this.CreateBlogButton.Text = "Create Blog";
+            this.CreateBlogButton.UseVisualStyleBackColor = false;
+            this.CreateBlogButton.Click += new System.EventHandler(this.CreateBlogButton_Click);
+            // 
+            // RemoveFileButton
+            // 
+            this.RemoveFileButton.BackColor = System.Drawing.Color.MidnightBlue;
+            this.RemoveFileButton.BlogID = "";
+            this.RemoveFileButton.CategoryID = "";
+            this.RemoveFileButton.ClickState = Blogz.ClickState.Rename;
+            this.RemoveFileButton.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
+            this.RemoveFileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RemoveFileButton.ForeColor = System.Drawing.SystemColors.Window;
+            this.RemoveFileButton.Location = new System.Drawing.Point(713, 372);
+            this.RemoveFileButton.Name = "RemoveFileButton";
+            this.RemoveFileButton.Size = new System.Drawing.Size(61, 23);
+            this.RemoveFileButton.TabIndex = 24;
+            this.RemoveFileButton.Text = "Remove";
+            this.RemoveFileButton.UseVisualStyleBackColor = false;
+            this.RemoveFileButton.Click += new System.EventHandler(this.BlogViewPictureManager_Click);
+            // 
+            // AddFileButton
+            // 
+            this.AddFileButton.BackColor = System.Drawing.Color.MidnightBlue;
+            this.AddFileButton.BlogID = "";
+            this.AddFileButton.CategoryID = "";
+            this.AddFileButton.ClickState = Blogz.ClickState.Edit;
+            this.AddFileButton.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
+            this.AddFileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddFileButton.ForeColor = System.Drawing.SystemColors.Window;
+            this.AddFileButton.Location = new System.Drawing.Point(651, 372);
+            this.AddFileButton.Name = "AddFileButton";
+            this.AddFileButton.Size = new System.Drawing.Size(61, 23);
+            this.AddFileButton.TabIndex = 23;
+            this.AddFileButton.Text = "Add";
+            this.AddFileButton.UseVisualStyleBackColor = false;
+            this.AddFileButton.Click += new System.EventHandler(this.BlogViewPictureManager_Click);
+            // 
             // RemovePictureButton
             // 
             this.RemovePictureButton.BackColor = System.Drawing.Color.MidnightBlue;
@@ -555,20 +588,6 @@
             this.BackButton.UseVisualStyleBackColor = false;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
-            // ImagesView
-            // 
-            this.ImagesView.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.ImagesView.Controls.Add(this.ImgDeleteButton);
-            this.ImagesView.Controls.Add(this.UploadImgButton);
-            this.ImagesView.Controls.Add(this.ImgViewSelectedCount);
-            this.ImagesView.Controls.Add(this.ImgViewFlowPanel);
-            this.ImagesView.Controls.Add(this.ImgViewBackButton);
-            this.ImagesView.Location = new System.Drawing.Point(4, 5);
-            this.ImagesView.Name = "ImagesView";
-            this.ImagesView.Size = new System.Drawing.Size(780, 451);
-            this.ImagesView.TabIndex = 2;
-            this.ImagesView.Text = "tabPage1";
-            // 
             // ImgDeleteButton
             // 
             this.ImgDeleteButton.BackColor = System.Drawing.SystemColors.ControlDark;
@@ -599,25 +618,6 @@
             this.UploadImgButton.Text = "Upload Image";
             this.UploadImgButton.UseVisualStyleBackColor = false;
             this.UploadImgButton.Click += new System.EventHandler(this.UploadButton_Click);
-            // 
-            // ImgViewSelectedCount
-            // 
-            this.ImgViewSelectedCount.AutoSize = true;
-            this.ImgViewSelectedCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ImgViewSelectedCount.Location = new System.Drawing.Point(656, 368);
-            this.ImgViewSelectedCount.Name = "ImgViewSelectedCount";
-            this.ImgViewSelectedCount.Size = new System.Drawing.Size(109, 15);
-            this.ImgViewSelectedCount.TabIndex = 19;
-            this.ImgViewSelectedCount.Text = "0 Images Selected";
-            // 
-            // ImgViewFlowPanel
-            // 
-            this.ImgViewFlowPanel.AutoScroll = true;
-            this.ImgViewFlowPanel.BackColor = System.Drawing.Color.RoyalBlue;
-            this.ImgViewFlowPanel.Location = new System.Drawing.Point(0, 0);
-            this.ImgViewFlowPanel.Name = "ImgViewFlowPanel";
-            this.ImgViewFlowPanel.Size = new System.Drawing.Size(645, 450);
-            this.ImgViewFlowPanel.TabIndex = 18;
             // 
             // ImgViewBackButton
             // 

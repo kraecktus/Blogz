@@ -97,8 +97,9 @@
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.EditButton);
             this.Controls.Add(this.TitleLBL);
+            this.Margin = new System.Windows.Forms.Padding(7, 3, 0, 3);
             this.Name = "BlogControl";
-            this.Size = new System.Drawing.Size(610, 40);
+            this.Size = new System.Drawing.Size(598, 40);
             this.ResumeLayout(false);
             this.PerformLayout();
 

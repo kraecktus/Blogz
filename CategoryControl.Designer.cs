@@ -44,7 +44,7 @@
             this.BlogsPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BlogsPanel.BackColor = System.Drawing.Color.Transparent;
             this.BlogsPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.BlogsPanel.Location = new System.Drawing.Point(10, 36);
+            this.BlogsPanel.Location = new System.Drawing.Point(-1, 36);
             this.BlogsPanel.Name = "BlogsPanel";
             this.BlogsPanel.Size = new System.Drawing.Size(0, 0);
             this.BlogsPanel.TabIndex = 0;
@@ -56,7 +56,7 @@
             this.TitlePanel.Controls.Add(this.TitleLabel);
             this.TitlePanel.Location = new System.Drawing.Point(3, 3);
             this.TitlePanel.Name = "TitlePanel";
-            this.TitlePanel.Size = new System.Drawing.Size(629, 31);
+            this.TitlePanel.Size = new System.Drawing.Size(617, 33);
             this.TitlePanel.TabIndex = 1;
             // 
             // OpenCloseButton
@@ -69,7 +69,7 @@
             this.OpenCloseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.OpenCloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OpenCloseButton.ForeColor = System.Drawing.Color.Transparent;
-            this.OpenCloseButton.Location = new System.Drawing.Point(604, 6);
+            this.OpenCloseButton.Location = new System.Drawing.Point(582, 6);
             this.OpenCloseButton.Name = "OpenCloseButton";
             this.OpenCloseButton.Size = new System.Drawing.Size(22, 22);
             this.OpenCloseButton.TabIndex = 1;
@@ -94,8 +94,9 @@
             this.BackColor = System.Drawing.Color.CornflowerBlue;
             this.Controls.Add(this.TitlePanel);
             this.Controls.Add(this.BlogsPanel);
+            this.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.Name = "CategoryControl";
-            this.Size = new System.Drawing.Size(635, 299);
+            this.Size = new System.Drawing.Size(613, 299);
             this.TitlePanel.ResumeLayout(false);
             this.TitlePanel.PerformLayout();
             this.ResumeLayout(false);

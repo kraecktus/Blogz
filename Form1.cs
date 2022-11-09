@@ -29,6 +29,7 @@ namespace Blogz
 
             PicturePanel.Visible = false;
             CategoryFlowPanel.Controls.Clear();
+            CategoryFlowPanel.SizeChanged += (object sender, EventArgs e) => CategoryFlowPanel.HorizontalScroll.Visible = false;
 
             if (Essentials.Categorys.Count == 0) CategoryFlowPanel.Controls.Add(new BlogControl(Essentials.ErrorBlog("No Blogs were Found"), false, (object sender, EventArgs e) => { }, InitializeEvent));
             else
@@ -173,7 +174,7 @@ namespace Blogz
         public void CheckForBlogUpdates(Blog _Blog)
         {
             Boolean isDifferent = false;
-            if (TitleTxtBox.Text != _Blog.Title || CreationDateTxtBox.Text != _Blog.CreationDate || CreatorTxtBox.Text != _Blog.Creator)
+            if (TitleTxtBox.Text != _Blog.Title || CreationDateTxtBox.Text != _Blog.CreationDate || CreatorTxtBox.Text != _Blog.Creator || DescriptionTxtBox.Text != _Blog.Description)
             {
                 isDifferent = true;
             }

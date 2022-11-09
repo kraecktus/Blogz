@@ -76,7 +76,7 @@ namespace Blogz
             else
             {
                 Essentials.ImagesSelected.Remove(LocalImage.ID);
-                FormsSelectedUpdate.Invoke(this, e);
+                FormsSelectedUpdate.Invoke(LocalClickState, e);
             }
         }
     }
